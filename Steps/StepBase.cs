@@ -11,7 +11,7 @@ namespace Steps
     { 
       get 
       {
-        if(!string.IsNullOrEmpty(this.stepName))
+        if(string.IsNullOrEmpty(this.stepName))
         {
           this.stepName = GetDefaultStepName();
         }
@@ -26,7 +26,8 @@ namespace Steps
     public int ProcessedItemsCount { get; set; }    
     public LinkedList<IStep> Neighbourood { get; set; }
     public LinkedListNode<IStep> Current { get; set; }
-    public bool WasFired { get; set; }    
+    public bool WasFired { get; set; }
+    public bool BreakProcessing { get; set; }    
 
     private string GetDefaultStepName()
     {

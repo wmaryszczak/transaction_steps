@@ -6,16 +6,19 @@ namespace Steps
 {
   public class GenericAsyncStep : StepBase, IStep
   {
-    private Action<IStep> action;
+    private Func<IStep, Task> action;
+    private Predicate<IStep> canProcessPredicate;
+    
 
-    public GenericAsyncStep(Action<IStep> action)
+    public GenericAsyncStep(Func<IStep, Task> action, Predicate<IStep> canProcessPredicate = null)
     {
       this.action = action;        
+      this.canProcessPredicate = canProcessPredicate ?? True;      
     }
     
-    public bool CapProcess()
+    public bool CanProcess()
     {
-        return true;
+        return this.canProcessPredicate(this);
     }
 
     public bool IsAsync()
@@ -25,10 +28,7 @@ namespace Steps
 
     public void Process()
     {
-      if(this.action != null)
-      {
-        this.action(this);
-      }
+      throw new NotImplementedException();
     }
 
     public async Task ProcessAsync(CancellationToken token)
@@ -39,7 +39,12 @@ namespace Steps
         tcs.SetCanceled();
         await tcs.Task;        
       }
-      await Task.Run(() => { this.action(this); }, token);
+      await this.action(this);
     }
+
+    private bool True(IStep step)
+    {
+      return true;
+    }        
   }
 }

@@ -8,7 +8,7 @@ namespace Steps
 {
   public interface IStep
   {
-    bool CapProcess();
+    bool CanProcess();
     bool IsAsync();    
     Task ProcessAsync(CancellationToken token);
     void Process();
@@ -19,5 +19,6 @@ namespace Steps
     LinkedList<IStep> Neighbourood { get; set; }
     LinkedListNode<IStep> Current { get; set; }
     bool WasFired { get; set; }    
+    bool BreakProcessing { get; set; }
   }
 }

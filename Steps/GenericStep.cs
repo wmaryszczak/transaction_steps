@@ -7,15 +7,17 @@ namespace Steps
   public class GenericStep : StepBase, IStep
   {
     private Action<IStep> action;
+    private Predicate<IStep> canProcessPredicate;
 
-    public GenericStep(Action<IStep> action)
+    public GenericStep(Action<IStep> action, Predicate<IStep> canProcessPredicate = null)
     {
       this.action = action;        
+      this.canProcessPredicate = canProcessPredicate ?? True;
     }
-    
-    public bool CapProcess()
+
+    public bool CanProcess()
     {
-        return true;
+        return this.canProcessPredicate(this);
     }
 
     public bool IsAsync()
@@ -35,5 +37,10 @@ namespace Steps
     {
       await Task.FromException(new NotImplementedException());
     }
+
+    private bool True(IStep step)
+    {
+      return true;
+    }    
   }
 }

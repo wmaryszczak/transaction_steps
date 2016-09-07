@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/anx_steps.dll",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/transaction_steps.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "externalConsole": false,
