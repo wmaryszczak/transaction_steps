@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Steps
+namespace Anixe.TransactionSteps
 {
   public abstract class StepBase
   {

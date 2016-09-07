@@ -1,5 +1,5 @@
 
-namespace Steps
+namespace Anixe.TransactionSteps
 {
   public interface IStepExecutionData
   {

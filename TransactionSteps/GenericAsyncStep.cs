@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Steps
+namespace Anixe.TransactionSteps
 {
   public class GenericAsyncStep : StepBase, IStep
   {
