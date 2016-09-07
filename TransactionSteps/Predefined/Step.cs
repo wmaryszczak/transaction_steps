@@ -2,14 +2,14 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Anixe.TransactionSteps
+namespace Anixe.TransactionSteps.Predefined
 {
-  public class GenericStep : StepBase, IStep
+  public class Step : StepBase, IStep
   {
     private Action<IStep> action;
     private Predicate<IStep> canProcessPredicate;
 
-    public GenericStep(Action<IStep> action, Predicate<IStep> canProcessPredicate = null)
+    public Step(Action<IStep> action, Predicate<IStep> canProcessPredicate = null)
     {
       this.action = action;        
       this.canProcessPredicate = canProcessPredicate ?? True;

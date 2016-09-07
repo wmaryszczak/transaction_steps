@@ -3,6 +3,17 @@ using System.Collections.Generic;
 
 namespace Anixe.TransactionSteps
 {
+  public abstract class StepBase<T> : StepBase where T : class
+  {
+    public T Context
+    {
+      get
+      { 
+        return this.Services.GetService(typeof(T)) as T;
+      }
+    }
+  }
+
   public abstract class StepBase
   {
     private string stepName;

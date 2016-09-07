@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Anixe.TransactionSteps;
+using Anixe.TransactionSteps.Predefined;
 
 namespace ConsoleApplication
 {
@@ -20,15 +21,15 @@ namespace ConsoleApplication
       Console.WriteLine("{0}: start", Task.CurrentId);
       var steps = new LinkedList<IStep>(
         new IStep[] {
-          new GenericStep((s) => { Console.Write("step1"); }),
-          new GenericStep((s) => 
+          new Step((s) => { Console.Write("step1"); }),
+          new Step((s) => 
           { 
             Console.WriteLine(" took {0} ms", s.Current.Previous.Value.TimeTaken);
             Console.WriteLine("step2");
-            s.Neighbourood.AddAfter(s.Current, new GenericStep((_) => { Console.WriteLine("step 2.1"); })); 
+            s.Neighbourood.AddAfter(s.Current, new Step((_) => { Console.WriteLine("step 2.1"); })); 
           }),
-          new GenericAsyncStep(DownloadDataAsync),
-          new GenericStep((s) => 
+          new AsyncStep(DownloadDataAsync),
+          new Step((s) => 
           { 
             Console.WriteLine("{0}->step5", s.Current.Previous.Value.Name); 
           })
