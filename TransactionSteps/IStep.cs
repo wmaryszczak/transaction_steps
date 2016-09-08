@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
+  public interface IStep<T> : IStep
+  {
+    T Context { get; set; }
+  }
+
   public interface IStep
   {
     bool CanProcess();

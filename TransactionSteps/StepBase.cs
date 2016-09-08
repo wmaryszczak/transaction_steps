@@ -1,16 +1,40 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
+  public abstract class AsyncStepBase<T> : StepBase<T> where T : class
+  {
+    public bool IsAsync()
+    {
+      return true;
+    }
+    public void Process()
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public abstract class SyncStepBase<T> : StepBase<T> where T : class
+  {
+    public bool IsAsync()
+    {
+      return false;
+    }
+    public Task ProcessAsync(CancellationToken token)
+    {
+      throw new NotImplementedException();
+    }
+  }
+  
   public abstract class StepBase<T> : StepBase where T : class
   {
     public T Context
     {
-      get
-      { 
-        return this.Services.GetService(typeof(T)) as T;
-      }
+      get;
+      set;
     }
   }
 

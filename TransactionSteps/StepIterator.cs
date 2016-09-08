@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
-  public class StepIterator
+  public class StepIterator<T> where T : class
   {
-    public async Task<int> IterateAllAsync(IServiceProvider services, LinkedList<IStep> steps, CancellationToken token)
+    private readonly T context;
+    public StepIterator(T context)
+    {
+      this.context = context;
+    }
+
+    public async Task<T> IterateAllAsync(IServiceProvider services, LinkedList<IStep> steps, CancellationToken token)
     {
       var currentNode = steps.First;
       int stepsExecuted = 0;
@@ -21,11 +27,15 @@ namespace Anixe.TransactionSteps
             return await Cancelled();
           }
           var step = currentNode.Value;
+          step.Services = services;
+          step.Neighbourood = steps;
+          step.Current = currentNode;
+          if(step is IStep<T>)
+          {
+            ((IStep<T>)step).Context = this.context;
+          }
           if(step.CanProcess())
           {
-            step.Services = services;
-            step.Neighbourood = steps;
-            step.Current = currentNode;
             var dt = DateTime.UtcNow;
             if(step.IsAsync())
             {
@@ -51,21 +61,30 @@ namespace Anixe.TransactionSteps
       {
         return await Failed(ex);
       }
-      return stepsExecuted;
+      return this.context;      
     }
 
-    private async Task<int> Failed(Exception ex)
+    protected async Task<T> Failed(Exception ex)
     {
-      var tcs = new TaskCompletionSource<int>();
+      var tcs = new TaskCompletionSource<T>();
       tcs.SetException(ex);
       return await tcs.Task;        
     }
 
-    private async Task<int> Cancelled()
+    protected async Task<T> Cancelled()
     {
-      var tcs = new TaskCompletionSource<int>();
+      var tcs = new TaskCompletionSource<T>();
       tcs.SetCanceled();
       return await tcs.Task;        
+    }
+    
+  }
+
+  public class StepIterator : StepIterator<object>
+  {
+    public StepIterator()
+      :base(new object())
+    {
     }
   }
 }
