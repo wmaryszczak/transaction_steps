@@ -9,15 +9,24 @@ namespace Anixe.TransactionSteps
   public class StepIterator<T> where T : class
   {
     private readonly T context;
+    private readonly List<StepStat> stats;
+
+    public List<StepStat> Stats
+    {
+      get{ return this.stats; }
+    }
+
     public StepIterator(T context)
     {
       this.context = context;
+      this.stats = new List<StepStat>{ };
     }
 
     public async Task<T> IterateAllAsync(IServiceProvider services, LinkedList<IStep> steps, CancellationToken token)
     {
       var currentNode = steps.First;
       int stepsExecuted = 0;
+      this.stats.Clear();
       try
       {
         while(currentNode != null)
@@ -48,6 +57,7 @@ namespace Anixe.TransactionSteps
             var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
             step.WasFired = true;
             step.TimeTaken = (int)tt;
+            TakeStats(step);
             stepsExecuted++;
             if(step.BreakProcessing)
             {
@@ -77,7 +87,11 @@ namespace Anixe.TransactionSteps
       tcs.SetCanceled();
       return await tcs.Task;        
     }
-    
+
+    protected void TakeStats(IStep step)
+    {
+      this.stats.Add(StepStat.CreateFromStep(step));
+    }    
   }
 
   public class StepIterator : StepIterator<object>
