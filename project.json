@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3-*",
+  "version": "1.0.4-*",
   "buildOptions": {
     "debugType": "portable"
   },
@@ -12,6 +12,10 @@
       }
     },
     "net46": {
+      "dependencies": {
+      }
+    },
+    "net45": {
       "dependencies": {
       }
     }

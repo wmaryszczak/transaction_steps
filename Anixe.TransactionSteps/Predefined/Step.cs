@@ -35,7 +35,11 @@ namespace Anixe.TransactionSteps.Predefined
 
     public async Task ProcessAsync(CancellationToken token)
     {
+      #if NET45
+      throw new NotImplementedException();
+      #else
       await Task.FromException(new NotImplementedException());
+      #endif
     }
 
     private bool True(IStep step)
