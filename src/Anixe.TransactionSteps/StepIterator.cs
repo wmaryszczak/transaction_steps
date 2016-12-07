@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
-  public class StepIterator<T> where T : class
+  public class StepIterator<T> : IStepIterator<T> where T : class
   {
     private readonly T context;
     private readonly List<StepStat> stats;
@@ -56,7 +55,7 @@ namespace Anixe.TransactionSteps
             }
             var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
             step.WasFired = true;
-            step.TimeTaken = (int)tt;
+            step.TimeTaken = tt;
             TakeStats(step);
             stepsExecuted++;
             if(step.BreakProcessing)

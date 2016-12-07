@@ -57,7 +57,7 @@ namespace Anixe.TransactionSteps
         this.stepName = value;
       } 
     }
-    public int TimeTaken { get; set; }
+    public double TimeTaken { get; set; }
     public int ProcessedItemsCount { get; set; }    
     public LinkedList<IStep> Neighbourood { get; set; }
     public LinkedListNode<IStep> Current { get; set; }

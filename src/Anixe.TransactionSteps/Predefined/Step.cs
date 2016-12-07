@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps.Predefined
 {
-  public class CtxStep<T> : StepBase<T>, IStep<T> where T : class
+  public class Step : StepBase, IStep
   {
-    private Action<IStep<T>> action;
-    private Predicate<IStep<T>> canProcessPredicate;
+    private Action<IStep> action;
+    private Predicate<IStep> canProcessPredicate;
 
-    public CtxStep(Action<IStep<T>> action, Predicate<IStep<T>> canProcessPredicate = null)
+    public Step(Action<IStep> action, Predicate<IStep> canProcessPredicate = null)
     {
       this.action = action;        
       this.canProcessPredicate = canProcessPredicate ?? True;
@@ -35,10 +35,12 @@ namespace Anixe.TransactionSteps.Predefined
 
     public async Task ProcessAsync(CancellationToken token)
     {
-      #if NET45
-      throw new NotImplementedException();
-      #else
+      #if !NET45
       await Task.FromException(new NotImplementedException());
+      #else
+      var ctx = new TaskCompletionSource<bool>();
+      ctx.SetException(new NotImplementedException());
+      await ctx.Task;
       #endif
     }
 

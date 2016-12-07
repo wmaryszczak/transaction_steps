@@ -19,11 +19,11 @@ namespace Anixe.TransactionSteps
     void Process();
     IServiceProvider Services { get; set; }
     string Name { get; set; }
-    int TimeTaken { get; set; }    
+    double TimeTaken { get; set; }    
     int ProcessedItemsCount { get; set; }    
     LinkedList<IStep> Neighbourood { get; set; }
     LinkedListNode<IStep> Current { get; set; }
     bool WasFired { get; set; }    
-    bool BreakProcessing { get; set; }
+    bool BreakProcessing { get; set; }    
   }
 }

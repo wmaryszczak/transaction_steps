@@ -73,7 +73,7 @@ namespace Anixe.TransactionSteps.Predefined
       set { this.InnerStep.Name = value; }    
     }
 
-    public int TimeTaken 
+    public double TimeTaken 
     {
       get { return this.InnerStep.TimeTaken; }
       set { this.InnerStep.TimeTaken = value; }    
