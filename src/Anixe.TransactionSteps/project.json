@@ -1,5 +1,23 @@
 {
   "version": "1.0.6",
+  "authors": [
+    "wm"
+  ],
+  "description": "Reduce complexity of you code by splitting it into transaction steps",
+  "title": "Transaction Steps",
+  "packOptions": {
+    "owners": [
+      "wm",
+      "anixe"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/wmaryszczak/transaction_steps"
+    },
+    "tags": [
+      "anixe"
+    ]
+  },
 
   "frameworks": {
     "netcoreapp1.0": {
