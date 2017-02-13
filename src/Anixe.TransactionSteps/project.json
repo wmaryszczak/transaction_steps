@@ -5,6 +5,7 @@
   ],
   "description": "Reduce complexity of you code by splitting it into transaction steps",
   "title": "Transaction Steps",
+  "projectUrl": "https://github.com/wmaryszczak/transaction_steps",
   "packOptions": {
     "owners": [
       "wm",
