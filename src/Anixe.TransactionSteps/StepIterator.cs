@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
-  public class StepIterator<T> : IStepIterator<T> where T : class
+  public class StepIterator<T> : IStepIterator<T> where T : IPropertyBag
   {
     private readonly T context;
     private readonly List<StepStat> stats;
@@ -21,10 +21,13 @@ namespace Anixe.TransactionSteps
       this.stats = new List<StepStat>{ };
     }
 
-    public async Task<T> IterateAllAsync(IServiceProvider services, LinkedList<IStep> steps, CancellationToken token)
+    public async Task<T> IterateAllAsync(
+      IServiceProvider services, 
+      LinkedList<IStep> steps, 
+      IStep errorHandler, 
+      CancellationToken token)
     {
       var currentNode = steps.First;
-      int stepsExecuted = 0;
       this.stats.Clear();
       try
       {
@@ -38,45 +41,60 @@ namespace Anixe.TransactionSteps
           step.Services = services;
           step.Neighbourood = steps;
           step.Current = currentNode;
-          if(step is IStep<T>)
+          await ExecuteStep(step, token);
+          if(step.BreakProcessing)
           {
-            ((IStep<T>)step).Context = this.context;
+            break;
           }
-          if(step.CanProcess())
-          {
-            var dt = DateTime.UtcNow;
-            if(step.IsAsync())
-            {
-              await step.ProcessAsync(token);
-            }
-            else 
-            {
-              step.Process();
-            }
-            var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
-            step.WasFired = true;
-            step.TimeTaken = tt;
-            TakeStats(step);
-            stepsExecuted++;
-            if(step.BreakProcessing)
-            {
-              break;
-            }
-          }
+          
           currentNode = currentNode.Next;
         }
       }
       catch(Exception ex)
       {
-        return await Failed(ex);
+        if(errorHandler != null)
+        {
+          this.context.Set<Exception>(ex);
+          errorHandler.Services = services;
+          await ExecuteStep(errorHandler, token);
+        }
+        else
+        {
+          return await Failed(ex);
+        }
       }
       return this.context;      
+
     }
 
+    private async Task ExecuteStep(IStep step, CancellationToken token)
+    {
+      if(step is IStep<T>)
+      {
+        ((IStep<T>)step).Context = this.context;
+      }
+      if(step.CanProcess())
+      {
+        var dt = DateTime.UtcNow;
+        if(step.IsAsync())
+        {
+          await step.ProcessAsync(token);
+        }
+        else 
+        {
+          step.Process();
+        }
+        var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+        step.WasFired = true;
+        step.TimeTaken = tt;
+        TakeStats(step);
+      }
+
+    }
     protected async Task<T> Failed(Exception ex)
     {
       var tcs = new TaskCompletionSource<T>();
-      tcs.SetException(ex);
+      tcs.SetResult(this.context);
       return await tcs.Task;        
     }
 
@@ -91,13 +109,5 @@ namespace Anixe.TransactionSteps
     {
       this.stats.Add(StepStat.CreateFromStep(step));
     }    
-  }
-
-  public class StepIterator : StepIterator<object>
-  {
-    public StepIterator()
-      :base(new object())
-    {
-    }
   }
 }
