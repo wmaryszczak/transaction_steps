@@ -33,18 +33,17 @@ namespace Anixe.TransactionSteps
       {
         while(currentNode != null)
         {
-          if(token.IsCancellationRequested)
-          {
-            return await Cancelled();
-          }
           var step = currentNode.Value;
           step.Services = services;
           step.Neighbourood = steps;
           step.Current = currentNode;
-          await ExecuteStep(step, token);
-          if(step.BreakProcessing)
+          if(!token.IsCancellationRequested || step.MustProcessAfterCancel)
           {
-            break;
+            await ExecuteStep(step, token);
+            if(step.BreakProcessing)
+            {
+              break;
+            }
           }
           
           currentNode = currentNode.Next;
@@ -60,9 +59,10 @@ namespace Anixe.TransactionSteps
         }
         else
         {
-          return await Failed(ex);
+          throw;
         }
       }
+
       return this.context;      
 
     }
@@ -73,6 +73,7 @@ namespace Anixe.TransactionSteps
       {
         ((IStep<T>)step).Context = this.context;
       }
+      
       if(step.CanProcess())
       {
         var dt = DateTime.UtcNow;
@@ -95,13 +96,6 @@ namespace Anixe.TransactionSteps
     {
       var tcs = new TaskCompletionSource<T>();
       tcs.SetResult(this.context);
-      return await tcs.Task;        
-    }
-
-    protected async Task<T> Cancelled()
-    {
-      var tcs = new TaskCompletionSource<T>();
-      tcs.SetCanceled();
       return await tcs.Task;        
     }
 

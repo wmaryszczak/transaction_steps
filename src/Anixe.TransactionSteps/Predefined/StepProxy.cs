@@ -108,6 +108,11 @@ namespace Anixe.TransactionSteps.Predefined
       get { return this.InnerStep.BreakProcessing; }
       set { this.InnerStep.BreakProcessing = value; }    
     }
-    
+
+    public bool MustProcessAfterCancel
+    {
+      get { return this.InnerStep.MustProcessAfterCancel; }
+      set { this.InnerStep.MustProcessAfterCancel = value; }    
+    }    
   }
 }

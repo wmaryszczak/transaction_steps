@@ -62,7 +62,8 @@ namespace Anixe.TransactionSteps
     public LinkedList<IStep> Neighbourood { get; set; }
     public LinkedListNode<IStep> Current { get; set; }
     public bool WasFired { get; set; }
-    public bool BreakProcessing { get; set; }    
+    public bool BreakProcessing { get; set; }
+    public bool MustProcessAfterCancel { get; set; } = false;
 
     private string GetDefaultStepName()
     {

@@ -22,7 +22,12 @@ namespace Anixe.TransactionSteps
     int ProcessedItemsCount { get; set; }    
     LinkedList<IStep> Neighbourood { get; set; }
     LinkedListNode<IStep> Current { get; set; }
-    bool WasFired { get; set; }    
-    bool BreakProcessing { get; set; }    
+    bool WasFired { get; set; }
+    bool BreakProcessing { get; set; }
+    /// <summary>
+    /// Set up flag if iterator must process step after cancellation occurs via CancellationToken. Flag is valid only for sync steps
+    /// </summary>
+    /// <returns></returns>
+    bool MustProcessAfterCancel { get; set; }
   }
 }
