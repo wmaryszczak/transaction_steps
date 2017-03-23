@@ -13,5 +13,11 @@ namespace Anixe.TransactionSteps
       LinkedList<IStep> steps, 
       IStep errorHandler, 
       CancellationToken token);
+
+    void IterateAll(
+      IServiceProvider services, 
+      LinkedList<IStep> steps, 
+      IStep errorHandler);
+      
   }
 }

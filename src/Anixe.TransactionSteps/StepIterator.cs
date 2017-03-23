@@ -12,76 +12,114 @@ namespace Anixe.TransactionSteps
 
     public List<StepStat> Stats
     {
-      get{ return this.stats; }
+      get { return this.stats; }
     }
 
     public StepIterator(T context)
     {
       this.context = context;
-      this.stats = new List<StepStat>{ };
+      this.stats = new List<StepStat> { };
     }
 
     public async Task<T> IterateAllAsync(
-      IServiceProvider services, 
-      LinkedList<IStep> steps, 
-      IStep errorHandler, 
+      IServiceProvider services,
+      LinkedList<IStep> steps,
+      IStep errorHandler,
       CancellationToken token)
     {
       var currentNode = steps.First;
       this.stats.Clear();
       try
       {
-        while(currentNode != null)
+        while (currentNode != null)
         {
-          var step = currentNode.Value;
-          step.Services = services;
-          step.Neighbourood = steps;
-          step.Current = currentNode;
-          if(!token.IsCancellationRequested || step.MustProcessAfterCancel)
+          var step = RetrieveStep(steps, currentNode, services);
+          if (!token.IsCancellationRequested || step.MustProcessAfterCancel)
           {
-            await ExecuteStep(step, token);
-            if(step.BreakProcessing)
+            await ExecuteStepAsync(step, token);
+            if (step.BreakProcessing)
             {
               break;
             }
           }
-          
           currentNode = currentNode.Next;
         }
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
-        if(errorHandler != null)
+        if (errorHandler != null)
         {
           this.context.Set<Exception>(ex);
           errorHandler.Services = services;
-          await ExecuteStep(errorHandler, token);
+          await ExecuteStepAsync(errorHandler, token);
         }
         else
         {
           throw;
         }
       }
-
-      return this.context;      
-
+      return this.context;
     }
 
-    private async Task ExecuteStep(IStep step, CancellationToken token)
+    public void IterateAll(
+      IServiceProvider services,
+      LinkedList<IStep> steps,
+      IStep errorHandler)
     {
-      if(step is IStep<T>)
+      var currentNode = steps.First;
+      this.stats.Clear();
+      try
+      {
+        while (currentNode != null)
+        {
+          var step = RetrieveStep(steps, currentNode, services);
+          ExecuteStep(step);
+          if (step.BreakProcessing)
+          {
+            break;
+          }
+          currentNode = currentNode.Next;
+        }
+      }
+      catch (Exception ex)
+      {
+        if (errorHandler != null)
+        {
+          this.context.Set<Exception>(ex);
+          errorHandler.Services = services;
+          ExecuteStep(errorHandler);
+        }
+        else
+        {
+          throw;
+        }
+      }
+    }
+
+    private IStep RetrieveStep(LinkedList<IStep> steps, LinkedListNode<IStep> currentNode, IServiceProvider services)
+    {
+      var step = currentNode.Value;
+      step.Services = services;
+      step.Neighbourood = steps;
+      step.Current = currentNode;
+      return step;
+    }
+
+    private async Task ExecuteStepAsync(IStep step, CancellationToken token)
+    {
+      if (step is IStep<T>)
       {
         ((IStep<T>)step).Context = this.context;
       }
-      
-      if(step.CanProcess())
+
+      if (step.CanProcess())
       {
         var dt = DateTime.UtcNow;
-        if(step.IsAsync())
+        if (step.IsAsync())
         {
           await step.ProcessAsync(token);
         }
-        else 
+        else
         {
           step.Process();
         }
@@ -90,18 +128,43 @@ namespace Anixe.TransactionSteps
         step.TimeTaken = tt;
         TakeStats(step);
       }
-
     }
+
+    private void ExecuteStep(IStep step)
+    {
+      if (step is IStep<T>)
+      {
+        ((IStep<T>)step).Context = this.context;
+      }
+
+      if (step.CanProcess())
+      {
+        var dt = DateTime.UtcNow;
+        if (step.IsAsync())
+        {
+          throw new NotSupportedException("Use IterateAllAsync method");
+        }
+        else
+        {
+          step.Process();
+        }
+        var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+        step.WasFired = true;
+        step.TimeTaken = tt;
+        TakeStats(step);
+      }
+    }
+
     protected async Task<T> Failed(Exception ex)
     {
       var tcs = new TaskCompletionSource<T>();
       tcs.SetResult(this.context);
-      return await tcs.Task;        
+      return await tcs.Task;
     }
 
     protected void TakeStats(IStep step)
     {
       this.stats.Add(StepStat.CreateFromStep(step));
-    }    
+    }
   }
 }
