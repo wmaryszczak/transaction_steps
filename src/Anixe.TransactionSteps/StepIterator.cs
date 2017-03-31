@@ -112,9 +112,9 @@ namespace Anixe.TransactionSteps
         ((IStep<T>)step).Context = this.context;
       }
 
+      var dt = DateTime.UtcNow;
       if (step.CanProcess())
       {
-        var dt = DateTime.UtcNow;
         if (step.IsAsync())
         {
           await step.ProcessAsync(token);
