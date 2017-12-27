@@ -18,12 +18,13 @@ namespace Anixe.TransactionSteps.Predefined
       this.TimeTaken = tt;      
     }
 
-    public override async Task ProcessAsync(CancellationToken token)
+    public override async Task<T> ProcessAsync(CancellationToken token)
     {      
       var dt = DateTime.UtcNow;      
       await base.ProcessAsync(token);      
       var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
       this.TimeTaken = tt;
+      return this.Context;
     }
   }
 }

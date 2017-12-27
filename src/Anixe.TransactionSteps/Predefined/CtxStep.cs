@@ -33,15 +33,11 @@ namespace Anixe.TransactionSteps.Predefined
       }
     }
 
-    public async Task ProcessAsync(CancellationToken token)
+    public Task<T> ProcessAsync(CancellationToken token)
     {
-      #if !NET45
-      await Task.FromException(new NotImplementedException());
-      #else
-      var ctx = new TaskCompletionSource<bool>();
+      var ctx = new TaskCompletionSource<T>();
       ctx.SetException(new NotImplementedException());
-      await ctx.Task;
-      #endif
+      return ctx.Task;
     }
 
     private bool True(IStep step)

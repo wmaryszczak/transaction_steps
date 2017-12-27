@@ -30,9 +30,9 @@ namespace Anixe.TransactionSteps.Predefined
       this.SyncStep.Process();
     }
     
-    public virtual async Task ProcessAsync(CancellationToken token)
+    public virtual Task<T> ProcessAsync(CancellationToken token)
     {      
-      await this.AsyncStep.ProcessAsync(token);      
+      return this.AsyncStep.ProcessAsync(token);      
     }
 
     private IStep<T> InnerStep
@@ -85,13 +85,13 @@ namespace Anixe.TransactionSteps.Predefined
       set { this.InnerStep.ProcessedItemsCount = value; }    
     }
         
-    public LinkedList<IStep> Neighbourood
+    public LinkedList<IStep<T>> Neighbourood
     {
       get { return this.InnerStep.Neighbourood; }
       set { this.InnerStep.Neighbourood = value; }    
     }
     
-    public LinkedListNode<IStep> Current
+    public LinkedListNode<IStep<T>> Current
     {
       get { return this.InnerStep.Current; }
       set { this.InnerStep.Current = value; }    

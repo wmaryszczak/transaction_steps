@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Reduce complexity of you code by splitting it into transaction steps</Description>
+    <AssemblyTitle>Transaction Steps</AssemblyTitle>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <Authors>wm</Authors>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <DebugType>portable</DebugType>
+    <AssemblyName>Anixe.TransactionSteps</AssemblyName>
+    <PackageId>Anixe.TransactionSteps</PackageId>
+    <PackageTags>anixe</PackageTags>
+    <PackageProjectUrl>https://github.com/wmaryszczak/transaction_steps</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/wmaryszczak/transaction_steps</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.4.0" />
+  </ItemGroup>
+</Project>

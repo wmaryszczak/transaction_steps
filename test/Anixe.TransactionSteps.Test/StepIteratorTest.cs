@@ -8,10 +8,11 @@ using Xunit;
 
 namespace Anixe.TransactionSteps.Test
 {
+  [Collection("Our Test Collection #1")]
   public class StepIteratorTest
   {
     private PropertyBag ctx;
-    private LinkedList<IStep> steps;
+    private LinkedList<IStep<IPropertyBag>> steps;
     private StepIterator<IPropertyBag> subject;
 
     public StepIteratorTest()
@@ -22,18 +23,31 @@ namespace Anixe.TransactionSteps.Test
     }
 
 
-    public LinkedList<IStep> CreateSteps()
+    public LinkedList<IStep<IPropertyBag>> CreateSteps()
     {
-      return new LinkedList<IStep>
+      return new LinkedList<IStep<IPropertyBag>>
       (
-        new List<IStep>
+        new List<IStep<IPropertyBag>>
         { 
           new CtxStep<IPropertyBag>((_) => {  }, (_) => { return true; }),
           new CtxStep<IPropertyBag>((_) => {  }, (_) => { return true; }),
         }
       );
     }
-      
+
+    public LinkedList<IStep<IPropertyBag>> CreateAsyncSteps()
+    {
+      return new LinkedList<IStep<IPropertyBag>>
+      (
+        new List<IStep<IPropertyBag>>
+        {
+          new AsyncTestStep(),
+          new AsyncTestStep(),
+          new AsyncTestStep(),
+        }
+      );
+    }
+
     [Fact]
     public async Task Should_IterateAllAsync_Over_All_Steps()
     {
@@ -107,7 +121,19 @@ namespace Anixe.TransactionSteps.Test
       steps.AddFirst(new CtxStep<IPropertyBag>((_) => {  throw new InvalidOperationException("test"); }, (_) => { return true; }));
       this.subject.IterateAll(null, steps, errorHandler);
       Assert.True(errorHandler.WasFired);
-    }    
-    
+    }
+
+
+    [Fact]
+    public async Task Should_Have_Allocations()
+    {
+      Console.WriteLine($"GEN0 collections {GC.CollectionCount(0)}");
+      var s = CreateAsyncSteps();
+      for (int i = 0; i < 100_000; i++)
+      {
+        var ctx = await this.subject.IterateAllAsync(null, s, null, new CancellationToken());
+      }
+      Console.WriteLine($"GEN0 collections {GC.CollectionCount(0)}");
+    }
   }
 }

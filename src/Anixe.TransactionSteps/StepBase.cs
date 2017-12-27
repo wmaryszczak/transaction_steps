@@ -5,6 +5,27 @@ using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
+  public abstract class AsyncValueStepBase<T> : StepBase where T : class
+  {
+    public bool IsAsync()
+    {
+      return true;
+    }
+    public void Process()
+    {
+      throw new NotImplementedException();
+    }
+
+    public T Context
+    {
+      get;
+      set;
+    }
+
+    public LinkedList<IValueStep<T>> Neighbourood { get; set; }
+    public LinkedListNode<IValueStep<T>> Current { get; set; }
+  }
+
   public abstract class AsyncStepBase<T> : StepBase<T> where T : class
   {
     public bool IsAsync()
@@ -23,7 +44,7 @@ namespace Anixe.TransactionSteps
     {
       return false;
     }
-    public Task ProcessAsync(CancellationToken token)
+    public Task<T> ProcessAsync(CancellationToken token)
     {
       throw new NotImplementedException();
     }
@@ -36,6 +57,9 @@ namespace Anixe.TransactionSteps
       get;
       set;
     }
+
+    public LinkedList<IStep<T>> Neighbourood { get; set; }
+    public LinkedListNode<IStep<T>> Current { get; set; }
   }
 
   public abstract class StepBase
@@ -59,8 +83,6 @@ namespace Anixe.TransactionSteps
     }
     public double TimeTaken { get; set; }
     public int ProcessedItemsCount { get; set; }    
-    public LinkedList<IStep> Neighbourood { get; set; }
-    public LinkedListNode<IStep> Current { get; set; }
     public bool WasFired { get; set; }
     public bool BreakProcessing { get; set; }
     public bool MustProcessAfterCancel { get; set; } = false;
