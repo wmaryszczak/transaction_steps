@@ -15,5 +15,15 @@ namespace Anixe.TransactionSteps
         ProcessedItemsCount = step.ProcessedItemsCount,        
       };
     }
+
+    public static StepStat CreateFromStep(IValueTaskStep step)
+    {
+      return new StepStat
+      {
+        Name = step.Name,
+        TimeTaken = step.TimeTaken,
+        ProcessedItemsCount = step.ProcessedItemsCount,
+      };
+    }
   }
 }

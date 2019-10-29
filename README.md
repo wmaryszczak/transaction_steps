@@ -180,3 +180,21 @@ Lets make it flat and simple using transaction_steps
     }
   }  
 ```
+
+## StepIteratorTest
+
+|                                            Method |     Mean |     Error |    StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
+|-------------------------------------------------- |---------:|----------:|----------:|-------:|------:|------:|----------:|
+|  Should_Benchmark_IterateAllAsync_Over_Sync_Steps | 3.079 us | 0.0303 us | 0.0283 us | 0.2518 |     - |     - |   1.55 KB |
+| Should_Benchmark_IterateAllAsync_Over_Async_Steps | 3.280 us | 0.0858 us | 0.0761 us | 0.4807 |     - |     - |   2.95 KB |
+|   Should_Benchmark_IterateAllAsync_Over_All_Steps | 6.630 us | 0.0443 us | 0.0370 us | 0.6943 |     - |     - |   4.26 KB |
+
+
+## ValueTaskStepIteratorTest
+
+|                                            Method |     Mean |     Error |    StdDev |  Gen 0 |  Gen 1 | Gen 2 | Allocated |
+|-------------------------------------------------- |---------:|----------:|----------:|-------:|-------:|------:|----------:|
+|  Should_Benchmark_IterateAllAsync_Over_Sync_Steps | 2.754 us | 0.0218 us | 0.0193 us | 0.1755 |      - |     - |   1.09 KB |
+| Should_Benchmark_IterateAllAsync_Over_Async_Steps | 3.095 us | 0.0261 us | 0.0231 us | 0.4044 |      - |     - |   2.49 KB |
+|   Should_Benchmark_IterateAllAsync_Over_All_Steps | 6.175 us | 0.0448 us | 0.0397 us | 0.5569 | 0.0076 |     - |   3.43 KB |
+

@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{233784C3-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anixe.TransactionSteps.Test", "test\Anixe.TransactionSteps.Test\Anixe.TransactionSteps.Test.csproj", "{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anixe.TransactionSteps.Benchmark", "test\Anixe.TransactionSteps.Benchmark\Anixe.TransactionSteps.Benchmark.csproj", "{EED79E8F-21AD-4289-8B2F-646B4B350336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +50,22 @@ Global
 		{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}.Release|x64.Build.0 = Release|Any CPU
 		{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}.Release|x86.ActiveCfg = Release|Any CPU
 		{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}.Release|x86.Build.0 = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|x64.Build.0 = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Debug|x86.Build.0 = Debug|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x64.ActiveCfg = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x64.Build.0 = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x86.ActiveCfg = Release|Any CPU
+		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61E415B4-30D5-4016-85C7-D3674F765B2A} = {AC2F059F-DD22-4A35-8425-5912168C87CE}
 		{D987C48E-32A3-45FE-A10A-9D6E69C29FF0} = {233784C3-6E85-493C-99CA-6CC952299DDC}
+		{EED79E8F-21AD-4289-8B2F-646B4B350336} = {233784C3-6E85-493C-99CA-6CC952299DDC}
 	EndGlobalSection
 EndGlobal
