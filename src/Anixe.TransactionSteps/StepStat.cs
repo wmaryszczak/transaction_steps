@@ -11,8 +11,8 @@ namespace Anixe.TransactionSteps
       return new StepStat
       {
         Name = step.Name,
-        TimeTaken = step.TimeTaken,    
-        ProcessedItemsCount = step.ProcessedItemsCount,        
+        TimeTaken = step.TimeTaken,
+        ProcessedItemsCount = step.ProcessedItemsCount,
       };
     }
 

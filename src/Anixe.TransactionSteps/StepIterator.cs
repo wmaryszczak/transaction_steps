@@ -10,15 +10,12 @@ namespace Anixe.TransactionSteps
     private readonly T context;
     private readonly List<StepStat> stats;
 
-    public List<StepStat> Stats
-    {
-      get { return this.stats; }
-    }
+    public List<StepStat> Stats => this.stats;
 
     public StepIterator(T context)
     {
       this.context = context;
-      this.stats = new List<StepStat> { };
+      this.stats = new List<StepStat>();
     }
 
     public async Task<T> IterateAllAsync(
@@ -81,18 +78,11 @@ namespace Anixe.TransactionSteps
           currentNode = currentNode.Next;
         }
       }
-      catch (Exception ex)
+      catch (Exception ex) when (errorHandler != null)
       {
-        if (errorHandler != null)
-        {
-          this.context.Set<Exception>(ex);
-          errorHandler.Services = services;
-          ExecuteStep(errorHandler);
-        }
-        else
-        {
-          throw;
-        }
+        this.context.Set<Exception>(ex);
+        errorHandler.Services = services;
+        ExecuteStep(errorHandler);
       }
     }
 
@@ -107,9 +97,9 @@ namespace Anixe.TransactionSteps
 
     private async Task ExecuteStepAsync(IStep step, CancellationToken token)
     {
-      if (step is IStep<T>)
+      if (step is IStep<T> stepGeneric)
       {
-        ((IStep<T>)step).Context = this.context;
+        stepGeneric.Context = this.context;
       }
 
       var dt = DateTime.UtcNow;
@@ -132,9 +122,9 @@ namespace Anixe.TransactionSteps
 
     private void ExecuteStep(IStep step)
     {
-      if (step is IStep<T>)
+      if (step is IStep<T> stepGeneric)
       {
-        ((IStep<T>)step).Context = this.context;
+        stepGeneric.Context = this.context;
       }
 
       if (step.CanProcess())

@@ -14,8 +14,8 @@ namespace Anixe.TransactionSteps
 
     public override void Set<T>(string name, T property)
     {
-      this.namedProperties.Add(name, new PropertyBagItem<T>(property));       
-    }        
+      this.namedProperties.Add(name, new PropertyBagItem<T>(property));
+    }
   }
 
   public class PropertyBag : IPropertyBag
@@ -23,7 +23,7 @@ namespace Anixe.TransactionSteps
     protected class PropertyBagItem
     {
     }
-    
+
     protected class PropertyBagItem<T> : PropertyBagItem
     {
       private readonly T instance;
@@ -32,12 +32,9 @@ namespace Anixe.TransactionSteps
         this.instance = instance;
       }
 
-      public T Value
-      {
-        get { return this.instance; }
-      }
-    }  
-    
+      public T Value => this.instance;
+    }
+
     protected readonly Dictionary<Type, PropertyBagItem> typedProperties;
     protected readonly Dictionary<string, PropertyBagItem> namedProperties;
 
@@ -67,40 +64,37 @@ namespace Anixe.TransactionSteps
     {
       var type = typeof(T);
       this.typedProperties[type] = new PropertyBagItem<T>(property);
-    }    
+    }
 
     public virtual void Set<T>(string name, T property)
     {
-      this.namedProperties[name] = new PropertyBagItem<T>(property);       
+      this.namedProperties[name] = new PropertyBagItem<T>(property);
     }
 
     public T Get<T>()
     {
       var retval = TryGet<T>();
-      if(retval != null)
+      if (retval != null)
       {
         return retval.Value;
       }
-      return default(T);      
+      return default(T);
     }
 
     public T Get<T>(string name)
     {
       var retval = TryGet<T>(name);
-      if(retval != null)
+      if (retval != null)
       {
         return retval.Value;
       }
-      return default(T);      
+      return default(T);
     }
 
     public void Unset<T>()
     {
       var type = typeof(T);
-      if(this.typedProperties.ContainsKey(type))
-      {
-        this.typedProperties.Remove(type);
-      }      
+      this.typedProperties.Remove(type);
     }
 
     public IPropertyBag Clone()
@@ -110,9 +104,9 @@ namespace Anixe.TransactionSteps
 
     public IPropertyBag Clone(Type[] exclude)
     {
-      var cloned = this.typedProperties.Where(kvp => !exclude.Any(item => item == kvp.Key)).ToDictionary(g => g.Key, g => g .Value);
+      var cloned = this.typedProperties.Where(kvp => Array.Find(exclude, item => item == kvp.Key) == default).ToDictionary(g => g.Key, g => g.Value);
       return new PropertyBag(
-        cloned, 
+        cloned,
         this.namedProperties
       );
     }
@@ -120,20 +114,18 @@ namespace Anixe.TransactionSteps
     private PropertyBagItem<T> TryGet<T>()
     {
       var type = typeof(T);
-      PropertyBagItem instance = null; 
-      if(this.typedProperties.TryGetValue(type, out instance))
+      if (this.typedProperties.TryGetValue(type, out var item))
       {
-        return ((PropertyBagItem<T>)instance);
+        return (PropertyBagItem<T>)item;
       }
       return null;
     }
-         
+
     private PropertyBagItem<T> TryGet<T>(string name)
     {
-      PropertyBagItem instance = null; 
-      if(this.namedProperties.TryGetValue(name, out instance))
+      if (this.namedProperties.TryGetValue(name, out var item))
       {
-        return ((PropertyBagItem<T>)instance);
+        return (PropertyBagItem<T>)item;
       }
       return null;
     }

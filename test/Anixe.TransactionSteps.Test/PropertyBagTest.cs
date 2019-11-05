@@ -5,7 +5,7 @@ namespace Anixe.TransactionSteps.Test
 {
   public class PropertyBagTest
   {
-    private IPropertyBag subject;
+    private readonly IPropertyBag subject;
 
     public PropertyBagTest()
     {
@@ -44,6 +44,5 @@ namespace Anixe.TransactionSteps.Test
       var actual = subject.Get<int>();
       Assert.Equal(item, actual);
     }
-
   }
 }

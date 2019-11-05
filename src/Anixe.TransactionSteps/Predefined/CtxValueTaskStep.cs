@@ -6,9 +6,9 @@ namespace Anixe.TransactionSteps.Predefined
 {
   public class CtxValueTaskStep<T> : ValueStepBase<T>, IValueTaskStep<T> where T : class
   {
-    private Action<IValueTaskStep<T>> syncAction;
-    private Func<IValueTaskStep<T>, CancellationToken, Task> asyncAction;
-    private Func<bool> canProcessPredicate;
+    private readonly Action<IValueTaskStep<T>> syncAction;
+    private readonly Func<IValueTaskStep<T>, CancellationToken, Task> asyncAction;
+    private readonly Func<bool> canProcessPredicate;
 
     public CtxValueTaskStep(Action<IValueTaskStep<T>> syncAction, Func<IValueTaskStep<T>, CancellationToken, Task> asyncAction, Func<bool> canProcessPredicate)
     {

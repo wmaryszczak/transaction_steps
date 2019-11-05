@@ -10,12 +10,12 @@ namespace Anixe.TransactionSteps.Predefined
     private readonly AsyncStepBase<T> asyncStep;
     private readonly SyncStepBase<T> step;
 
-    public StepProxyBase(AsyncStepBase<T> asyncStep)
+    protected StepProxyBase(AsyncStepBase<T> asyncStep)
     {
       this.asyncStep = asyncStep;
     }
 
-    public StepProxyBase(SyncStepBase<T> step)
+    protected StepProxyBase(SyncStepBase<T> step)
     {
       this.step = step;
     }
@@ -29,10 +29,10 @@ namespace Anixe.TransactionSteps.Predefined
     {
       this.SyncStep.Process();
     }
-    
+
     public virtual async Task ProcessAsync(CancellationToken token)
-    {      
-      await this.AsyncStep.ProcessAsync(token);      
+    {
+      await this.AsyncStep.ProcessAsync(token);
     }
 
     private IStep<T> InnerStep
@@ -42,12 +42,12 @@ namespace Anixe.TransactionSteps.Predefined
 
     private IStep<T> AsyncStep
     {
-      get { return this.asyncStep as IStep<T>; }
+      get => this.asyncStep as IStep<T>;
     }
 
     private IStep<T> SyncStep
     {
-      get { return this.step as IStep<T>; }
+      get => this.step as IStep<T>;
     }
 
     public bool IsAsync()
@@ -57,62 +57,62 @@ namespace Anixe.TransactionSteps.Predefined
 
     public T Context
     {
-      get { return this.InnerStep.Context; }
-      set { this.InnerStep.Context = value; }
+      get => this.InnerStep.Context;
+      set => this.InnerStep.Context = value;
     }
 
-    public IServiceProvider Services 
-    { 
-      get { return this.InnerStep.Services; }
-      set { this.InnerStep.Services = value; }
+    public IServiceProvider Services
+    {
+      get => this.InnerStep.Services;
+      set => this.InnerStep.Services = value;
     }
 
     public string Name
     {
-      get { return this.InnerStep.Name; }
-      set { this.InnerStep.Name = value; }    
+      get => this.InnerStep.Name;
+      set => this.InnerStep.Name = value;
     }
 
-    public double TimeTaken 
+    public double TimeTaken
     {
-      get { return this.InnerStep.TimeTaken; }
-      set { this.InnerStep.TimeTaken = value; }    
+      get => this.InnerStep.TimeTaken;
+      set => this.InnerStep.TimeTaken = value;
     }
 
     public int ProcessedItemsCount
     {
-      get { return this.InnerStep.ProcessedItemsCount; }
-      set { this.InnerStep.ProcessedItemsCount = value; }    
+      get => this.InnerStep.ProcessedItemsCount;
+      set => this.InnerStep.ProcessedItemsCount = value;
     }
-        
+
     public LinkedList<IStep> Neighbourood
     {
-      get { return this.InnerStep.Neighbourood; }
-      set { this.InnerStep.Neighbourood = value; }    
+      get => this.InnerStep.Neighbourood;
+      set => this.InnerStep.Neighbourood = value;
     }
-    
+
     public LinkedListNode<IStep> Current
     {
-      get { return this.InnerStep.Current; }
-      set { this.InnerStep.Current = value; }    
+      get => this.InnerStep.Current;
+      set => this.InnerStep.Current = value;
     }
-    
+
     public bool WasFired
     {
-      get { return this.InnerStep.WasFired; }
-      set { this.InnerStep.WasFired = value; }    
+      get => this.InnerStep.WasFired;
+      set => this.InnerStep.WasFired = value;
     }
-    
+
     public bool BreakProcessing
     {
-      get { return this.InnerStep.BreakProcessing; }
-      set { this.InnerStep.BreakProcessing = value; }    
+      get => this.InnerStep.BreakProcessing;
+      set => this.InnerStep.BreakProcessing = value;
     }
 
     public bool MustProcessAfterCancel
     {
-      get { return this.InnerStep.MustProcessAfterCancel; }
-      set { this.InnerStep.MustProcessAfterCancel = value; }    
-    }    
+      get => this.InnerStep.MustProcessAfterCancel;
+      set => this.InnerStep.MustProcessAfterCancel = value;
+    }
   }
 }
