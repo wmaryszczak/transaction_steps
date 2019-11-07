@@ -11,5 +11,5 @@ namespace Anixe.TransactionSteps
     void Unset<T>();
     IPropertyBag Clone();
     IPropertyBag Clone(System.Type[] exclude);
-  }  
+  }
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,8 +13,8 @@ namespace Anixe.TransactionSteps
     bool CanProcess();
     ValueTask Process(CancellationToken token);
     string Name { get; set; }
-    double TimeTaken { get; set; }    
-    int ProcessedItemsCount { get; set; }    
+    double TimeTaken { get; set; }
+    int ProcessedItemsCount { get; set; }
     bool WasFired { get; set; }
     bool BreakProcessing { get; set; }
     /// <summary>

@@ -198,3 +198,11 @@ Lets make it flat and simple using transaction_steps
 | Should_Benchmark_IterateAllAsync_Over_Async_Steps | 3.095 us | 0.0261 us | 0.0231 us | 0.4044 |      - |     - |   2.49 KB |
 |   Should_Benchmark_IterateAllAsync_Over_All_Steps | 6.175 us | 0.0448 us | 0.0397 us | 0.5569 | 0.0076 |     - |   3.43 KB |
 
+## PropertyBagTest
+
+|             Method |     Mean |     Error |    StdDev |   Median | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|------------------- |---------:|----------:|----------:|---------:|------:|------:|------:|----------:|
+|     Set_Value_Type | 5.022 us | 0.6291 us | 1.7640 us | 5.300 us |     - |     - |     - |     856 B |
+| Set_Reference_Type | 3.356 us | 0.2597 us | 0.7367 us | 2.900 us |     - |     - |     - |     136 B |
+|     Get_Value_Type | 3.904 us | 0.2187 us | 0.6169 us | 4.050 us |     - |     - |     - |         - |
+| Get_Reference_Type | 2.597 us | 0.1166 us | 0.3030 us | 2.500 us |     - |     - |     - |         - |
