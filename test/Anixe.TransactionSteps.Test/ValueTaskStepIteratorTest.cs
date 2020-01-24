@@ -11,16 +11,15 @@ namespace Anixe.TransactionSteps.Test
 {
   public class ValueTaskStepIteratorTest
   {
-    private PropertyBag ctx;
-    private ValueTaskStepIterator<IPropertyBag> subject;
+    private readonly PropertyBag ctx;
+    private readonly ValueTaskStepIterator<IPropertyBag> subject;
 
     public ValueTaskStepIteratorTest()
     {
-      this.ctx = new PropertyBag { };
+      this.ctx = new PropertyBag();
       this.ctx.Set<Tuple<int>>(Tuple.Create(0));
       this.subject = new ValueTaskStepIterator<IPropertyBag>();
     }
-
 
     public List<IValueTaskStep> CreateSyncSteps()
     {
@@ -30,7 +29,7 @@ namespace Anixe.TransactionSteps.Test
         {
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + 1;
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, canProcessPredicate: () => { return true; }),
+        }, canProcessPredicate: () => true),
         new CtxValueTaskStep<IPropertyBag>(asyncAction: null, syncAction: (ctx) =>
         {
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + 1;
@@ -49,13 +48,13 @@ namespace Anixe.TransactionSteps.Test
           var val = await File.ReadAllTextAsync(path);
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, syncAction: null, canProcessPredicate: () => { return true; }),
+        }, syncAction: null, canProcessPredicate: () => true),
         new CtxValueTaskStep<IPropertyBag>(asyncAction: async (ctx, token) =>
         {
           var val = await File.ReadAllTextAsync(path);
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, syncAction: null, canProcessPredicate: () => { return true; }),
+        }, syncAction: null, canProcessPredicate: () => true),
       };
     }
 
@@ -70,13 +69,13 @@ namespace Anixe.TransactionSteps.Test
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
           cts.Cancel();
-        }, syncAction: null, canProcessPredicate: () => { return true; }),
+        }, syncAction: null, canProcessPredicate: () => true),
         new CtxValueTaskStep<IPropertyBag>(asyncAction: async (ctx, token) =>
         {
           var val = await File.ReadAllTextAsync(path);
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, syncAction: null, canProcessPredicate: () => { return true; }) { MustProcessAfterCancel = mustProcess },
+        }, syncAction: null, canProcessPredicate: () => true) { MustProcessAfterCancel = mustProcess },
       };
     }
 
@@ -90,13 +89,13 @@ namespace Anixe.TransactionSteps.Test
           var val = await File.ReadAllTextAsync("bllaaach");
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, syncAction: null, canProcessPredicate: () => { return true; }),
+        }, syncAction: null, canProcessPredicate: () => true),
         new CtxValueTaskStep<IPropertyBag>(asyncAction: async (ctx, token) =>
         {
           var val = await File.ReadAllTextAsync(path);
           var idx =  ctx.Context.Get<Tuple<int>>().Item1 + int.Parse(val);
           ctx.Context.Set<Tuple<int>>(Tuple.Create(idx));
-        }, syncAction: null, canProcessPredicate: () => { return true; }),
+        }, syncAction: null, canProcessPredicate: () => true),
       };
     }
 
@@ -133,7 +132,7 @@ namespace Anixe.TransactionSteps.Test
     [Fact]
     public async Task Should_IterateAllAsync_Over_Async_Steps_Which_Must_Not_Process_After_Cancel()
     {
-      using(var cts = new CancellationTokenSource())
+      using (var cts = new CancellationTokenSource())
       {
         var steps = CreateAyncSteps(cts, mustProcess: false);
         await this.subject.IterateAllAsync(this.ctx, steps, cts.Token);
@@ -146,7 +145,7 @@ namespace Anixe.TransactionSteps.Test
     public void Should_Throw_Exception_Which_Occurred_In_Step()
     {
       var steps = CreateAyncStepsThrowEx();
-      Assert.ThrowsAsync<InvalidOperationException>(async () => { await this.subject.IterateAllAsync(this.ctx, steps, CancellationToken.None);});
+      Assert.ThrowsAsync<InvalidOperationException>(async () => await this.subject.IterateAllAsync(this.ctx, steps, CancellationToken.None));
     }
   }
 }

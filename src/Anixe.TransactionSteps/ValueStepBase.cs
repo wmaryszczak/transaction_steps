@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Sources;
 
 namespace Anixe.TransactionSteps
 {
-  
   public abstract class ValueStepBase<T> : ValueStepBase
   {
-    public T Context
-    {
-      get;
-      set;
-    }
+    public T Context { get; set; }
   }
 
   public abstract class ValueStepBase : IValueTaskStep
   {
     public virtual ValueTask Process(CancellationToken token)
     {
-      if(IsAsync())
+      if (IsAsync())
       {
         return new ValueTask(ProceeAsync(token));
       }
@@ -36,23 +28,23 @@ namespace Anixe.TransactionSteps
     public abstract bool CanProcess();
 
     private string stepName;
-    public string Name 
-    { 
-      get 
+    public string Name
+    {
+      get
       {
-        if(string.IsNullOrEmpty(this.stepName))
+        if (string.IsNullOrEmpty(this.stepName))
         {
           this.stepName = GetDefaultStepName();
         }
         return this.stepName;
-      } 
+      }
       set
       {
         this.stepName = value;
-      } 
+      }
     }
     public double TimeTaken { get; set; }
-    public int ProcessedItemsCount { get; set; }    
+    public int ProcessedItemsCount { get; set; }
     public bool WasFired { get; set; }
     public bool BreakProcessing { get; set; }
     public bool MustProcessAfterCancel { get; set; } = false;
