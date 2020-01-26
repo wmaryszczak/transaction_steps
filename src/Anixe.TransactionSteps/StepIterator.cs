@@ -138,11 +138,11 @@ namespace Anixe.TransactionSteps
       }
     }
 
-    protected Task<T> Failed(Exception ex)
+    protected async Task<T> Failed(Exception ex)
     {
       var tcs = new TaskCompletionSource<T>();
       tcs.SetResult(this.context);
-      return tcs.Task;
+      return await tcs.Task;
     }
 
     protected void TakeStats(IStep step)
