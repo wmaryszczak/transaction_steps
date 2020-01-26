@@ -42,18 +42,11 @@ namespace Anixe.TransactionSteps
           currentNode = currentNode.Next;
         }
       }
-      catch (Exception ex)
+      catch (Exception ex) when (errorHandler != null)
       {
-        if (errorHandler != null)
-        {
-          this.context.Set<Exception>(ex);
-          errorHandler.Services = services;
-          await ExecuteStepAsync(errorHandler, token);
-        }
-        else
-        {
-          throw;
-        }
+        this.context.Set<Exception>(ex);
+        errorHandler.Services = services;
+        await ExecuteStepAsync(errorHandler, token);
       }
       return this.context;
     }
@@ -145,11 +138,11 @@ namespace Anixe.TransactionSteps
       }
     }
 
-    protected async Task<T> Failed(Exception ex)
+    protected Task<T> Failed(Exception ex)
     {
       var tcs = new TaskCompletionSource<T>();
       tcs.SetResult(this.context);
-      return await tcs.Task;
+      return tcs.Task;
     }
 
     protected void TakeStats(IStep step)
