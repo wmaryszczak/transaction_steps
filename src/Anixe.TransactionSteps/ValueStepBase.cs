@@ -14,7 +14,7 @@ namespace Anixe.TransactionSteps
     {
       if (IsAsync())
       {
-        return new ValueTask(ProceeAsync(token));
+        return new ValueTask(ProcessAsync(token));
       }
       ProcessSync(token);
       return new ValueTask();
@@ -22,7 +22,7 @@ namespace Anixe.TransactionSteps
 
     protected abstract void ProcessSync(CancellationToken token);
 
-    protected abstract Task ProceeAsync(CancellationToken token);
+    protected abstract Task ProcessAsync(CancellationToken token);
 
     public abstract bool IsAsync();
     public abstract bool CanProcess();
