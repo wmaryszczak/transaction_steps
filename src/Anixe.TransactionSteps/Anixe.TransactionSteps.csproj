@@ -7,7 +7,8 @@
     <Authors>WM</Authors>
     <RepositoryUrl>https://github.com/wmaryszczak/transaction_steps</RepositoryUrl>
     <PackageReleaseNotes>-reduced unnecessary Exception stacktrace unwind when IterateAllAsync has no errorHandler provided  
-- fixed typo `ProceeAsync` to `ProcessAsync`</PackageReleaseNotes>
+- fixed typo `ProceeAsync` to `ProcessAsync`
+-improve performance of sync tasks iteration using IterateAllAsync</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

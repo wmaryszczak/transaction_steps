@@ -30,9 +30,9 @@ namespace Anixe.TransactionSteps.Predefined
       this.SyncStep.Process();
     }
 
-    public virtual async Task ProcessAsync(CancellationToken token)
+    public virtual Task ProcessAsync(CancellationToken token)
     {
-      await this.AsyncStep.ProcessAsync(token);
+      return this.AsyncStep.ProcessAsync(token);
     }
 
     private IStep<T> InnerStep

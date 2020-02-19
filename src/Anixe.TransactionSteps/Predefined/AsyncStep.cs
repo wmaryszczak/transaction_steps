@@ -30,15 +30,15 @@ namespace Anixe.TransactionSteps.Predefined
       throw new NotSupportedException();
     }
 
-    public async Task ProcessAsync(CancellationToken token)
+    public Task ProcessAsync(CancellationToken token)
     {
       if (token.IsCancellationRequested)
       {
         var tcs = new TaskCompletionSource<int>();
         tcs.SetCanceled();
-        await tcs.Task;
+        return tcs.Task;
       }
-      await this.action(this);
+      return this.action(this);
     }
 
     private bool True(IStep step)

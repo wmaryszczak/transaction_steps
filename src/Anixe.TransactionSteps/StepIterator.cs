@@ -33,7 +33,14 @@ namespace Anixe.TransactionSteps
           var step = RetrieveStep(steps, currentNode, services);
           if (!token.IsCancellationRequested || step.MustProcessAfterCancel)
           {
-            await ExecuteStepAsync(step, token);
+            if (step.IsAsync())
+            {
+              await ExecuteStepAsync(step, token);
+            }
+            else
+            {
+              ExecuteStep(step);
+            }
             if (step.BreakProcessing)
             {
               break;
