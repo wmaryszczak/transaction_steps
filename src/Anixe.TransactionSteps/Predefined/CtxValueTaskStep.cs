@@ -27,7 +27,7 @@ namespace Anixe.TransactionSteps.Predefined
       return this.asyncAction != null;
     }
 
-    protected override Task ProceeAsync(CancellationToken token)
+    protected override Task ProcessAsync(CancellationToken token)
     {
       return this.asyncAction(this, token);
     }

@@ -17,7 +17,7 @@ namespace Anixe.TransactionSteps.Benchmark
       return true;
     }
 
-    protected override Task ProceeAsync(CancellationToken token)
+    protected override Task ProcessAsync(CancellationToken token)
     {
       this.Context++;
       return Task.FromResult(true);

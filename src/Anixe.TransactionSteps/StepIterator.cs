@@ -33,7 +33,14 @@ namespace Anixe.TransactionSteps
           var step = RetrieveStep(steps, currentNode, services);
           if (!token.IsCancellationRequested || step.MustProcessAfterCancel)
           {
-            await ExecuteStepAsync(step, token);
+            if (step.IsAsync())
+            {
+              await ExecuteStepAsync(step, token);
+            }
+            else
+            {
+              ExecuteStep(step);
+            }
             if (step.BreakProcessing)
             {
               break;
@@ -42,18 +49,11 @@ namespace Anixe.TransactionSteps
           currentNode = currentNode.Next;
         }
       }
-      catch (Exception ex)
+      catch (Exception ex) when (errorHandler != null)
       {
-        if (errorHandler != null)
-        {
-          this.context.Set<Exception>(ex);
-          errorHandler.Services = services;
-          await ExecuteStepAsync(errorHandler, token);
-        }
-        else
-        {
-          throw;
-        }
+        this.context.Set<Exception>(ex);
+        errorHandler.Services = services;
+        await ExecuteStepAsync(errorHandler, token);
       }
       return this.context;
     }
