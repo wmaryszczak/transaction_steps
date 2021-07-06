@@ -1,22 +1,23 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps
 {
-  public class StepIterator<T> : IStepIterator<T> where T : IPropertyBag
+  public class StepIterator<T> : IStepIterator<T>
+    where T : IPropertyBag
   {
     private readonly T context;
     private readonly List<StepStat> stats;
-
-    public List<StepStat> Stats => this.stats;
 
     public StepIterator(T context)
     {
       this.context = context;
       this.stats = new List<StepStat>();
     }
+
+    public List<StepStat> Stats => this.stats;
 
     public async Task<T> IterateAllAsync(
       IServiceProvider services,
@@ -35,17 +36,19 @@ namespace Anixe.TransactionSteps
           {
             if (step.IsAsync())
             {
-              await ExecuteStepAsync(step, token);
+              await ExecuteStepAsync(step, token).ConfigureAwait(false);
             }
             else
             {
               ExecuteStep(step);
             }
+
             if (step.BreakProcessing)
             {
               break;
             }
           }
+
           currentNode = currentNode.Next;
         }
       }
@@ -53,8 +56,9 @@ namespace Anixe.TransactionSteps
       {
         this.context.Set<Exception>(ex);
         errorHandler.Services = services;
-        await ExecuteStepAsync(errorHandler, token);
+        await ExecuteStepAsync(errorHandler, token).ConfigureAwait(false);
       }
+
       return this.context;
     }
 
@@ -75,6 +79,7 @@ namespace Anixe.TransactionSteps
           {
             break;
           }
+
           currentNode = currentNode.Next;
         }
       }
@@ -86,7 +91,11 @@ namespace Anixe.TransactionSteps
       }
     }
 
-    private IStep RetrieveStep(LinkedList<IStep> steps, LinkedListNode<IStep> currentNode, IServiceProvider services)
+    protected Task<T> Failed(Exception ex) => Task.FromResult(this.context);
+
+    protected void TakeStats(IStep step) => this.stats.Add(StepStat.CreateFromStep(step));
+
+    private static IStep RetrieveStep(LinkedList<IStep> steps, LinkedListNode<IStep> currentNode, IServiceProvider services)
     {
       var step = currentNode.Value;
       step.Services = services;
@@ -107,12 +116,13 @@ namespace Anixe.TransactionSteps
       {
         if (step.IsAsync())
         {
-          await step.ProcessAsync(token);
+          await step.ProcessAsync(token).ConfigureAwait(false);
         }
         else
         {
           step.Process();
         }
+
         var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
         step.WasFired = true;
         step.TimeTaken = tt;
@@ -138,23 +148,12 @@ namespace Anixe.TransactionSteps
         {
           step.Process();
         }
+
         var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
         step.WasFired = true;
         step.TimeTaken = tt;
         TakeStats(step);
       }
-    }
-
-    protected async Task<T> Failed(Exception ex)
-    {
-      var tcs = new TaskCompletionSource<T>();
-      tcs.SetResult(this.context);
-      return await tcs.Task;
-    }
-
-    protected void TakeStats(IStep step)
-    {
-      this.stats.Add(StepStat.CreateFromStep(step));
     }
   }
 }

@@ -10,7 +10,7 @@ Lets make it flat and simple using transaction_steps
 
 * Define a transaction made from steps or async steps
 
-```
+```c#
   public class StepsFactory
   {
     public static LinkedList<IStep> Create()
@@ -34,7 +34,7 @@ Lets make it flat and simple using transaction_steps
 
 * Pass step collection to iterator and run
 
-```
+```c#
   public class AnyTransaction
   {
     private readonly IServiceProvider services;
@@ -61,7 +61,7 @@ Lets make it flat and simple using transaction_steps
 
 * Stats can be collected
 
-```
+```c#
   var iterator = new StepIterator<IPropertyBag>(ctx);
   await iterator.IterateAllAsync(this.services, steps, errorHandler, new CancellationToken());
 
@@ -71,7 +71,7 @@ Lets make it flat and simple using transaction_steps
 
 * Step can be synchronous 
 
-```
+```c#
   public class ApplyCalculations : SyncStepBase<IPropertyBag>, IStep<IPropertyBag>
   {
     public bool CanProcess()
@@ -89,7 +89,7 @@ Lets make it flat and simple using transaction_steps
 * Step can be asynchronous
 * Depenencies are resolved via well known IServiceProvider
 
-```
+```c#
   public class UpdateBookInSupplierAsync : AsyncStepBase<IPropertyBag>, IStep<IPropertyBag>
   {
     public bool CanProcess()
@@ -110,7 +110,7 @@ Lets make it flat and simple using transaction_steps
 
 * Steps share context
 
-```
+```c#
   public class UpdateBookInSupplierAsync : AsyncStepBase<IPropertyBag>, IStep<IPropertyBag>
   {
     public bool CanProcess()
@@ -146,7 +146,7 @@ Lets make it flat and simple using transaction_steps
 
 * Step can be proxied
 
-```
+```c#
   public class StepsFactory
   {
     public static LinkedList<IStep> Create()
@@ -165,7 +165,7 @@ Lets make it flat and simple using transaction_steps
 
 * Step can extend the pipeline at runtime
 
-```
+```c#
   public class RegisterTransactionSubmodule : SyncStepBase<IPropertyBag>, IStep<IPropertyBag>
   {
     public bool CanProcess()

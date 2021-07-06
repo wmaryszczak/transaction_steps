@@ -2,18 +2,40 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.0.3</Version>
+    <Version>2.0.4</Version>
     <Title>Transaction Steps</Title>
     <Authors>WM</Authors>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RepositoryUrl>https://github.com/wmaryszczak/transaction_steps</RepositoryUrl>
-    <PackageReleaseNotes>-reduced unnecessary Exception stacktrace unwind when IterateAllAsync has no errorHandler provided  
-- fixed typo `ProceeAsync` to `ProcessAsync`
--improve performance of sync tasks iteration using IterateAllAsync</PackageReleaseNotes>
+    <PackageReleaseNotes>- [MINOR] update System.Threading.Tasks.Extensions to 4.5.4 in netstandard2.0 build  
+- [MINOR] call `.ConfigureAwait(false)` in all async calls
+- [MINOR] change default implementation of StepIterator.Failed method to use Task.FromResult rather than awaiting task from TaskCompletionSource
+- [MINOR] added missing MIT licence to package metadata
+- [MINOR] added SourceLink to the nuget package
+- [INTERNAL] use StyleCop
+- [INTERNAL] use PublicApiAnalyzers
+- [INTERNAL] change structore of VS solution</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <DebugType>embedded</DebugType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" Condition="'$(TargetFramework)' == 'netstandard2.0'"/>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
-
 
 </Project>

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Anixe.QualityTools" Version="1.2.8" />
+    <PackageReference Include="Anixe.QualityTools" Version="1.2.12" />
   </ItemGroup>
 
   <ItemGroup>

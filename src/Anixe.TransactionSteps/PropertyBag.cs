@@ -1,23 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Anixe.TransactionSteps
 {
-  public class ReadonlyPropertyBag : PropertyBag
-  {
-    public override void Set<T>(T property)
-    {
-      var type = typeof(T);
-      this.typedProperties.Add(type, property);
-    }
-
-    public override void Set<T>(string name, T property)
-    {
-      this.namedProperties.Add(name, property);
-    }
-  }
-
   public class PropertyBag : IPropertyBag
   {
     protected readonly Dictionary<Type, object> typedProperties;
@@ -27,6 +13,12 @@ namespace Anixe.TransactionSteps
     {
       this.typedProperties = new Dictionary<Type, object>();
       this.namedProperties = new Dictionary<string, object>();
+    }
+
+    private PropertyBag(IDictionary<Type, object> typedProperties, Dictionary<string, object> namedProperties)
+    {
+      this.namedProperties = new Dictionary<string, object>(namedProperties);
+      this.typedProperties = new Dictionary<Type, object>(typedProperties);
     }
 
     private PropertyBag(IEnumerable<KeyValuePair<Type, object>> typedProperties, Dictionary<string, object> namedProperties)
@@ -67,6 +59,7 @@ namespace Anixe.TransactionSteps
       {
         return (T)item;
       }
+
       return default;
     }
 
@@ -76,6 +69,7 @@ namespace Anixe.TransactionSteps
       {
         return (T)item;
       }
+
       return default;
     }
 
@@ -95,8 +89,7 @@ namespace Anixe.TransactionSteps
       var cloned = this.typedProperties.Where(kvp => !Array.Exists(exclude, item => item == kvp.Key));
       return new PropertyBag(
         cloned,
-        this.namedProperties
-      );
+        this.namedProperties);
     }
   }
 }

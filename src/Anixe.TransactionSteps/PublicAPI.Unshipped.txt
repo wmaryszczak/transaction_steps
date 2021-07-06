@@ -1,0 +1,205 @@
+﻿abstract Anixe.TransactionSteps.ValueStepBase.CanProcess() -> bool
+abstract Anixe.TransactionSteps.ValueStepBase.IsAsync() -> bool
+abstract Anixe.TransactionSteps.ValueStepBase.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+abstract Anixe.TransactionSteps.ValueStepBase.ProcessSync(System.Threading.CancellationToken token) -> void
+Anixe.TransactionSteps.AsyncStepBase<T>
+Anixe.TransactionSteps.AsyncStepBase<T>.AsyncStepBase() -> void
+Anixe.TransactionSteps.AsyncStepBase<T>.IsAsync() -> bool
+Anixe.TransactionSteps.AsyncStepBase<T>.Process() -> void
+Anixe.TransactionSteps.IPropertyBag
+Anixe.TransactionSteps.IPropertyBag.Clone() -> Anixe.TransactionSteps.IPropertyBag
+Anixe.TransactionSteps.IPropertyBag.Clone(System.Type[] exclude) -> Anixe.TransactionSteps.IPropertyBag
+Anixe.TransactionSteps.IPropertyBag.Contains<T>() -> bool
+Anixe.TransactionSteps.IPropertyBag.Contains<T>(string name) -> bool
+Anixe.TransactionSteps.IPropertyBag.Get<T>() -> T
+Anixe.TransactionSteps.IPropertyBag.Get<T>(string name) -> T
+Anixe.TransactionSteps.IPropertyBag.Set<T>(string name, T property) -> void
+Anixe.TransactionSteps.IPropertyBag.Set<T>(T property) -> void
+Anixe.TransactionSteps.IPropertyBag.Unset<T>() -> void
+Anixe.TransactionSteps.IStep
+Anixe.TransactionSteps.IStep.BreakProcessing.get -> bool
+Anixe.TransactionSteps.IStep.BreakProcessing.set -> void
+Anixe.TransactionSteps.IStep.CanProcess() -> bool
+Anixe.TransactionSteps.IStep.Current.get -> System.Collections.Generic.LinkedListNode<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.IStep.Current.set -> void
+Anixe.TransactionSteps.IStep.IsAsync() -> bool
+Anixe.TransactionSteps.IStep.MustProcessAfterCancel.get -> bool
+Anixe.TransactionSteps.IStep.MustProcessAfterCancel.set -> void
+Anixe.TransactionSteps.IStep.Name.get -> string
+Anixe.TransactionSteps.IStep.Name.set -> void
+Anixe.TransactionSteps.IStep.Neighbourood.get -> System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.IStep.Neighbourood.set -> void
+Anixe.TransactionSteps.IStep.Process() -> void
+Anixe.TransactionSteps.IStep.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+Anixe.TransactionSteps.IStep.ProcessedItemsCount.get -> int
+Anixe.TransactionSteps.IStep.ProcessedItemsCount.set -> void
+Anixe.TransactionSteps.IStep.Services.get -> System.IServiceProvider
+Anixe.TransactionSteps.IStep.Services.set -> void
+Anixe.TransactionSteps.IStep.TimeTaken.get -> double
+Anixe.TransactionSteps.IStep.TimeTaken.set -> void
+Anixe.TransactionSteps.IStep.WasFired.get -> bool
+Anixe.TransactionSteps.IStep.WasFired.set -> void
+Anixe.TransactionSteps.IStep<T>
+Anixe.TransactionSteps.IStep<T>.Context.get -> T
+Anixe.TransactionSteps.IStep<T>.Context.set -> void
+Anixe.TransactionSteps.IStepIterator<T>
+Anixe.TransactionSteps.IStepIterator<T>.IterateAll(System.IServiceProvider services, System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep> steps, Anixe.TransactionSteps.IStep errorHandler) -> void
+Anixe.TransactionSteps.IStepIterator<T>.IterateAllAsync(System.IServiceProvider services, System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep> steps, Anixe.TransactionSteps.IStep errorHandler, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task<T>
+Anixe.TransactionSteps.IStepIterator<T>.Stats.get -> System.Collections.Generic.List<Anixe.TransactionSteps.StepStat>
+Anixe.TransactionSteps.IValueTaskStep
+Anixe.TransactionSteps.IValueTaskStep.BreakProcessing.get -> bool
+Anixe.TransactionSteps.IValueTaskStep.BreakProcessing.set -> void
+Anixe.TransactionSteps.IValueTaskStep.CanProcess() -> bool
+Anixe.TransactionSteps.IValueTaskStep.MustProcessAfterCancel.get -> bool
+Anixe.TransactionSteps.IValueTaskStep.MustProcessAfterCancel.set -> void
+Anixe.TransactionSteps.IValueTaskStep.Name.get -> string
+Anixe.TransactionSteps.IValueTaskStep.Name.set -> void
+Anixe.TransactionSteps.IValueTaskStep.Process(System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask
+Anixe.TransactionSteps.IValueTaskStep.ProcessedItemsCount.get -> int
+Anixe.TransactionSteps.IValueTaskStep.ProcessedItemsCount.set -> void
+Anixe.TransactionSteps.IValueTaskStep.TimeTaken.get -> double
+Anixe.TransactionSteps.IValueTaskStep.TimeTaken.set -> void
+Anixe.TransactionSteps.IValueTaskStep.WasFired.get -> bool
+Anixe.TransactionSteps.IValueTaskStep.WasFired.set -> void
+Anixe.TransactionSteps.IValueTaskStep<T>
+Anixe.TransactionSteps.IValueTaskStep<T>.Context.get -> T
+Anixe.TransactionSteps.IValueTaskStep<T>.Context.set -> void
+Anixe.TransactionSteps.IValueTaskStepIterator<T>
+Anixe.TransactionSteps.IValueTaskStepIterator<T>.IterateAllAsync(T context, System.Collections.Generic.IList<Anixe.TransactionSteps.IValueTaskStep> steps, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<System.Collections.Generic.List<Anixe.TransactionSteps.StepStat>>
+Anixe.TransactionSteps.Predefined.AsyncStep
+Anixe.TransactionSteps.Predefined.AsyncStep.AsyncStep(System.Func<Anixe.TransactionSteps.IStep, System.Threading.Tasks.Task> action, System.Predicate<Anixe.TransactionSteps.IStep> canProcessPredicate = null) -> void
+Anixe.TransactionSteps.Predefined.AsyncStep.CanProcess() -> bool
+Anixe.TransactionSteps.Predefined.AsyncStep.IsAsync() -> bool
+Anixe.TransactionSteps.Predefined.AsyncStep.Process() -> void
+Anixe.TransactionSteps.Predefined.AsyncStep.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+Anixe.TransactionSteps.Predefined.CtxStep<T>
+Anixe.TransactionSteps.Predefined.CtxStep<T>.CanProcess() -> bool
+Anixe.TransactionSteps.Predefined.CtxStep<T>.CtxStep(System.Action<Anixe.TransactionSteps.IStep<T>> action, System.Predicate<Anixe.TransactionSteps.IStep<T>> canProcessPredicate = null) -> void
+Anixe.TransactionSteps.Predefined.CtxStep<T>.IsAsync() -> bool
+Anixe.TransactionSteps.Predefined.CtxStep<T>.Process() -> void
+Anixe.TransactionSteps.Predefined.CtxStep<T>.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>
+Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>.CtxValueTaskStep(System.Action<Anixe.TransactionSteps.IValueTaskStep<T>> syncAction, System.Func<Anixe.TransactionSteps.IValueTaskStep<T>, System.Threading.CancellationToken, System.Threading.Tasks.Task> asyncAction, System.Func<bool> canProcessPredicate) -> void
+Anixe.TransactionSteps.Predefined.Step
+Anixe.TransactionSteps.Predefined.Step.CanProcess() -> bool
+Anixe.TransactionSteps.Predefined.Step.IsAsync() -> bool
+Anixe.TransactionSteps.Predefined.Step.Process() -> void
+Anixe.TransactionSteps.Predefined.Step.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+Anixe.TransactionSteps.Predefined.Step.Step(System.Action<Anixe.TransactionSteps.IStep> action, System.Predicate<Anixe.TransactionSteps.IStep> canProcessPredicate = null) -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.BreakProcessing.get -> bool
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.BreakProcessing.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Context.get -> T
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Context.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Current.get -> System.Collections.Generic.LinkedListNode<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Current.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.IsAsync() -> bool
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.MustProcessAfterCancel.get -> bool
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.MustProcessAfterCancel.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Name.get -> string
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Name.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Neighbourood.get -> System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Neighbourood.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.ProcessedItemsCount.get -> int
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.ProcessedItemsCount.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Services.get -> System.IServiceProvider
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Services.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.StepProxyBase(Anixe.TransactionSteps.AsyncStepBase<T> asyncStep) -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.StepProxyBase(Anixe.TransactionSteps.SyncStepBase<T> step) -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.TimeTaken.get -> double
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.TimeTaken.set -> void
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.WasFired.get -> bool
+Anixe.TransactionSteps.Predefined.StepProxyBase<T>.WasFired.set -> void
+Anixe.TransactionSteps.Predefined.StepStatProxy<T>
+Anixe.TransactionSteps.Predefined.StepStatProxy<T>.StepStatProxy(Anixe.TransactionSteps.AsyncStepBase<T> asyncStep) -> void
+Anixe.TransactionSteps.Predefined.StepStatProxy<T>.StepStatProxy(Anixe.TransactionSteps.SyncStepBase<T> step) -> void
+Anixe.TransactionSteps.PropertyBag
+Anixe.TransactionSteps.PropertyBag.Clone() -> Anixe.TransactionSteps.IPropertyBag
+Anixe.TransactionSteps.PropertyBag.Clone(System.Type[] exclude) -> Anixe.TransactionSteps.IPropertyBag
+Anixe.TransactionSteps.PropertyBag.Contains<T>() -> bool
+Anixe.TransactionSteps.PropertyBag.Contains<T>(string name) -> bool
+Anixe.TransactionSteps.PropertyBag.Get<T>() -> T
+Anixe.TransactionSteps.PropertyBag.Get<T>(string name) -> T
+Anixe.TransactionSteps.PropertyBag.PropertyBag() -> void
+Anixe.TransactionSteps.PropertyBag.Unset<T>() -> void
+Anixe.TransactionSteps.ReadonlyPropertyBag
+Anixe.TransactionSteps.ReadonlyPropertyBag.ReadonlyPropertyBag() -> void
+Anixe.TransactionSteps.StepBase
+Anixe.TransactionSteps.StepBase.BreakProcessing.get -> bool
+Anixe.TransactionSteps.StepBase.BreakProcessing.set -> void
+Anixe.TransactionSteps.StepBase.Current.get -> System.Collections.Generic.LinkedListNode<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.StepBase.Current.set -> void
+Anixe.TransactionSteps.StepBase.MustProcessAfterCancel.get -> bool
+Anixe.TransactionSteps.StepBase.MustProcessAfterCancel.set -> void
+Anixe.TransactionSteps.StepBase.Name.get -> string
+Anixe.TransactionSteps.StepBase.Name.set -> void
+Anixe.TransactionSteps.StepBase.Neighbourood.get -> System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep>
+Anixe.TransactionSteps.StepBase.Neighbourood.set -> void
+Anixe.TransactionSteps.StepBase.ProcessedItemsCount.get -> int
+Anixe.TransactionSteps.StepBase.ProcessedItemsCount.set -> void
+Anixe.TransactionSteps.StepBase.Services.get -> System.IServiceProvider
+Anixe.TransactionSteps.StepBase.Services.set -> void
+Anixe.TransactionSteps.StepBase.StepBase() -> void
+Anixe.TransactionSteps.StepBase.TimeTaken.get -> double
+Anixe.TransactionSteps.StepBase.TimeTaken.set -> void
+Anixe.TransactionSteps.StepBase.WasFired.get -> bool
+Anixe.TransactionSteps.StepBase.WasFired.set -> void
+Anixe.TransactionSteps.StepBase<T>
+Anixe.TransactionSteps.StepBase<T>.Context.get -> T
+Anixe.TransactionSteps.StepBase<T>.Context.set -> void
+Anixe.TransactionSteps.StepBase<T>.StepBase() -> void
+Anixe.TransactionSteps.StepIterator<T>
+Anixe.TransactionSteps.StepIterator<T>.Failed(System.Exception ex) -> System.Threading.Tasks.Task<T>
+Anixe.TransactionSteps.StepIterator<T>.IterateAll(System.IServiceProvider services, System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep> steps, Anixe.TransactionSteps.IStep errorHandler) -> void
+Anixe.TransactionSteps.StepIterator<T>.IterateAllAsync(System.IServiceProvider services, System.Collections.Generic.LinkedList<Anixe.TransactionSteps.IStep> steps, Anixe.TransactionSteps.IStep errorHandler, System.Threading.CancellationToken token) -> System.Threading.Tasks.Task<T>
+Anixe.TransactionSteps.StepIterator<T>.Stats.get -> System.Collections.Generic.List<Anixe.TransactionSteps.StepStat>
+Anixe.TransactionSteps.StepIterator<T>.StepIterator(T context) -> void
+Anixe.TransactionSteps.StepIterator<T>.TakeStats(Anixe.TransactionSteps.IStep step) -> void
+Anixe.TransactionSteps.StepStat
+Anixe.TransactionSteps.StepStat.Name -> string
+Anixe.TransactionSteps.StepStat.ProcessedItemsCount -> int
+Anixe.TransactionSteps.StepStat.StepStat() -> void
+Anixe.TransactionSteps.StepStat.TimeTaken -> double
+Anixe.TransactionSteps.SyncStepBase<T>
+Anixe.TransactionSteps.SyncStepBase<T>.IsAsync() -> bool
+Anixe.TransactionSteps.SyncStepBase<T>.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+Anixe.TransactionSteps.SyncStepBase<T>.SyncStepBase() -> void
+Anixe.TransactionSteps.ValueStepBase
+Anixe.TransactionSteps.ValueStepBase.BreakProcessing.get -> bool
+Anixe.TransactionSteps.ValueStepBase.BreakProcessing.set -> void
+Anixe.TransactionSteps.ValueStepBase.MustProcessAfterCancel.get -> bool
+Anixe.TransactionSteps.ValueStepBase.MustProcessAfterCancel.set -> void
+Anixe.TransactionSteps.ValueStepBase.Name.get -> string
+Anixe.TransactionSteps.ValueStepBase.Name.set -> void
+Anixe.TransactionSteps.ValueStepBase.ProcessedItemsCount.get -> int
+Anixe.TransactionSteps.ValueStepBase.ProcessedItemsCount.set -> void
+Anixe.TransactionSteps.ValueStepBase.TimeTaken.get -> double
+Anixe.TransactionSteps.ValueStepBase.TimeTaken.set -> void
+Anixe.TransactionSteps.ValueStepBase.ValueStepBase() -> void
+Anixe.TransactionSteps.ValueStepBase.WasFired.get -> bool
+Anixe.TransactionSteps.ValueStepBase.WasFired.set -> void
+Anixe.TransactionSteps.ValueStepBase<T>
+Anixe.TransactionSteps.ValueStepBase<T>.Context.get -> T
+Anixe.TransactionSteps.ValueStepBase<T>.Context.set -> void
+Anixe.TransactionSteps.ValueStepBase<T>.ValueStepBase() -> void
+Anixe.TransactionSteps.ValueTaskStepIterator<T>
+Anixe.TransactionSteps.ValueTaskStepIterator<T>.IterateAllAsync(T context, System.Collections.Generic.IList<Anixe.TransactionSteps.IValueTaskStep> steps, System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask<System.Collections.Generic.List<Anixe.TransactionSteps.StepStat>>
+Anixe.TransactionSteps.ValueTaskStepIterator<T>.ValueTaskStepIterator() -> void
+override Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>.CanProcess() -> bool
+override Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>.IsAsync() -> bool
+override Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+override Anixe.TransactionSteps.Predefined.CtxValueTaskStep<T>.ProcessSync(System.Threading.CancellationToken token) -> void
+override Anixe.TransactionSteps.Predefined.StepStatProxy<T>.Process() -> void
+override Anixe.TransactionSteps.Predefined.StepStatProxy<T>.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+override Anixe.TransactionSteps.ReadonlyPropertyBag.Set<T>(string name, T property) -> void
+override Anixe.TransactionSteps.ReadonlyPropertyBag.Set<T>(T property) -> void
+readonly Anixe.TransactionSteps.PropertyBag.namedProperties -> System.Collections.Generic.Dictionary<string, object>
+readonly Anixe.TransactionSteps.PropertyBag.typedProperties -> System.Collections.Generic.Dictionary<System.Type, object>
+static Anixe.TransactionSteps.StepStat.CreateFromStep(Anixe.TransactionSteps.IStep step) -> Anixe.TransactionSteps.StepStat
+static Anixe.TransactionSteps.StepStat.CreateFromStep(Anixe.TransactionSteps.IValueTaskStep step) -> Anixe.TransactionSteps.StepStat
+virtual Anixe.TransactionSteps.Predefined.StepProxyBase<T>.CanProcess() -> bool
+virtual Anixe.TransactionSteps.Predefined.StepProxyBase<T>.Process() -> void
+virtual Anixe.TransactionSteps.Predefined.StepProxyBase<T>.ProcessAsync(System.Threading.CancellationToken token) -> System.Threading.Tasks.Task
+virtual Anixe.TransactionSteps.PropertyBag.Set<T>(string name, T property) -> void
+virtual Anixe.TransactionSteps.PropertyBag.Set<T>(T property) -> void
+virtual Anixe.TransactionSteps.ValueStepBase.Process(System.Threading.CancellationToken token) -> System.Threading.Tasks.ValueTask

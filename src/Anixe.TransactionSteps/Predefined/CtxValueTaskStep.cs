@@ -1,10 +1,11 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps.Predefined
 {
-  public class CtxValueTaskStep<T> : ValueStepBase<T>, IValueTaskStep<T> where T : class
+  public class CtxValueTaskStep<T> : ValueStepBase<T>, IValueTaskStep<T>
+    where T : class
   {
     private readonly Action<IValueTaskStep<T>> syncAction;
     private readonly Func<IValueTaskStep<T>, CancellationToken, Task> asyncAction;
@@ -17,24 +18,12 @@ namespace Anixe.TransactionSteps.Predefined
       this.canProcessPredicate = canProcessPredicate;
     }
 
-    public override bool CanProcess()
-    {
-      return this.canProcessPredicate();
-    }
+    public override bool CanProcess() => this.canProcessPredicate();
 
-    public override bool IsAsync()
-    {
-      return this.asyncAction != null;
-    }
+    public override bool IsAsync() => this.asyncAction != null;
 
-    protected override Task ProcessAsync(CancellationToken token)
-    {
-      return this.asyncAction(this, token);
-    }
+    protected override Task ProcessAsync(CancellationToken token) => this.asyncAction(this, token);
 
-    protected override void ProcessSync(CancellationToken token)
-    {
-      this.syncAction(this);
-    }
+    protected override void ProcessSync(CancellationToken token) => this.syncAction(this);
   }
 }

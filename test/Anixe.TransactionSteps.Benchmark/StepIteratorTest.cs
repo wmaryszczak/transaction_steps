@@ -1,21 +1,18 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Anixe.TransactionSteps.Predefined;
 using BenchmarkDotNet.Attributes;
 
 namespace Anixe.TransactionSteps.Benchmark
 {
   public class StepIteratorTest
   {
-    private LinkedList<IStep> syncSteps;
-    private LinkedList<IStep> asyncSteps;
-    private LinkedList<IStep> allSteps;
-    private IPropertyBag ctx;
-    private IServiceProvider serviceProvider;
+    private readonly LinkedList<IStep> syncSteps;
+    private readonly LinkedList<IStep> asyncSteps;
+    private readonly LinkedList<IStep> allSteps;
+    private readonly IPropertyBag ctx;
+    private readonly IServiceProvider serviceProvider = null;
 
     public StepIteratorTest()
     {
@@ -28,8 +25,7 @@ namespace Anixe.TransactionSteps.Benchmark
       this.allSteps = new LinkedList<IStep>(tmp);
     }
 
-
-    private List<IStep> CreateSyncSteps(int stepCount)
+    private static List<IStep> CreateSyncSteps(int stepCount)
     {
       var retval = new List<IStep>(stepCount);
       for (int i = 0; i < stepCount; i++)
@@ -39,7 +35,7 @@ namespace Anixe.TransactionSteps.Benchmark
       return retval;
     }
 
-    private List<IStep> CreateAyncSteps(int stepCount)
+    private static List<IStep> CreateAyncSteps(int stepCount)
     {
       var retval = new List<IStep>(stepCount);
       for (int i = 0; i < stepCount; i++)
@@ -48,7 +44,6 @@ namespace Anixe.TransactionSteps.Benchmark
       }
       return retval;
     }
-
 
     [Benchmark]
     public async Task<IPropertyBag> Should_Benchmark_IterateAllAsync_Over_Sync_Steps()

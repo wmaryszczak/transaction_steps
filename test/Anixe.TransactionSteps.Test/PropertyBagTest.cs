@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Xunit;
 
 namespace Anixe.TransactionSteps.Test
@@ -38,7 +38,7 @@ namespace Anixe.TransactionSteps.Test
     [Fact]
     public void Should_Set_ValueType_Property()
     {
-      var item = 3;
+      const int item = 3;
       subject.Set<int>(item);
 
       var actual = subject.Get<int>();
