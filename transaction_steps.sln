@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AC2F059F-DD22-4A35-8425-5912168C87CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anixe.TransactionSteps", "src\Anixe.TransactionSteps\Anixe.TransactionSteps.csproj", "{61E415B4-30D5-4016-85C7-D3674F765B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anixe.TransactionSteps", "src\Anixe.TransactionSteps\Anixe.TransactionSteps.csproj", "{61E415B4-30D5-4016-85C7-D3674F765B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anixe.TransactionSteps.Test", "test\Anixe.TransactionSteps.Test\Anixe.TransactionSteps.Test.csproj", "{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{233784C3-6E85-493C-99CA-6CC952299DDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anixe.TransactionSteps.Benchmark", "test\Anixe.TransactionSteps.Benchmark\Anixe.TransactionSteps.Benchmark.csproj", "{EED79E8F-21AD-4289-8B2F-646B4B350336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anixe.TransactionSteps.Test", "test\Anixe.TransactionSteps.Test\Anixe.TransactionSteps.Test.csproj", "{D987C48E-32A3-45FE-A10A-9D6E69C29FF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anixe.TransactionSteps.Benchmark", "test\Anixe.TransactionSteps.Benchmark\Anixe.TransactionSteps.Benchmark.csproj", "{EED79E8F-21AD-4289-8B2F-646B4B350336}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C0C61529-D5C7-4E5D-8289-C790EA66631C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{61E415B4-30D5-4016-85C7-D3674F765B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -63,9 +62,10 @@ Global
 		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x86.ActiveCfg = Release|Any CPU
 		{EED79E8F-21AD-4289-8B2F-646B4B350336}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{61E415B4-30D5-4016-85C7-D3674F765B2A} = {AC2F059F-DD22-4A35-8425-5912168C87CE}
-		{D987C48E-32A3-45FE-A10A-9D6E69C29FF0} = {233784C3-6E85-493C-99CA-6CC952299DDC}
-		{EED79E8F-21AD-4289-8B2F-646B4B350336} = {233784C3-6E85-493C-99CA-6CC952299DDC}
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AEE507B-39AB-4FA7-8DEF-90EECC6C3D50}
 	EndGlobalSection
 EndGlobal

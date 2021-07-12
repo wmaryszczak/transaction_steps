@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,20 +15,11 @@ namespace Anixe.TransactionSteps.Predefined
       this.canProcessPredicate = canProcessPredicate ?? True;
     }
 
-    public bool CanProcess()
-    {
-      return this.canProcessPredicate(this);
-    }
+    public bool CanProcess() => this.canProcessPredicate(this);
 
-    public bool IsAsync()
-    {
-      return true;
-    }
+    public bool IsAsync() => true;
 
-    public void Process()
-    {
-      throw new NotSupportedException();
-    }
+    public void Process() => throw new NotSupportedException();
 
     public Task ProcessAsync(CancellationToken token)
     {
@@ -38,12 +29,10 @@ namespace Anixe.TransactionSteps.Predefined
         tcs.SetCanceled();
         return tcs.Task;
       }
+
       return this.action(this);
     }
 
-    private bool True(IStep step)
-    {
-      return true;
-    }
+    private bool True(IStep step) => true;
   }
 }

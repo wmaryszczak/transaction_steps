@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Anixe.TransactionSteps.Predefined;
 using BenchmarkDotNet.Attributes;
 
 namespace Anixe.TransactionSteps.Benchmark
 {
   public class ValueTaskStepIteratorTest
   {
-    private List<IValueTaskStep> syncSteps;
-    private List<IValueTaskStep> asyncSteps;
-    private List<IValueTaskStep> allSteps;
-    private int ctx;
+    private readonly List<IValueTaskStep> syncSteps;
+    private readonly List<IValueTaskStep> asyncSteps;
+    private readonly List<IValueTaskStep> allSteps;
+    private readonly int ctx = 0;
 
     public ValueTaskStepIteratorTest()
     {
@@ -25,23 +21,22 @@ namespace Anixe.TransactionSteps.Benchmark
       this.allSteps.AddRange(this.asyncSteps);
     }
 
-
-    private List<IValueTaskStep> CreateSyncSteps(int stepCount)
+    private static List<IValueTaskStep> CreateSyncSteps(int stepCount)
     {
       var retval = new List<IValueTaskStep>(stepCount);
       for (int i = 0; i < stepCount; i++)
       {
-        retval.Add(new ValueSyncStep(){ Name = $"SyncStep{i}" });
+        retval.Add(new ValueSyncStep() { Name = $"SyncStep{i}" });
       }
       return retval;
     }
 
-    private List<IValueTaskStep> CreateAyncSteps(int stepCount)
+    private static List<IValueTaskStep> CreateAyncSteps(int stepCount)
     {
       var retval = new List<IValueTaskStep>(stepCount);
       for (int i = 0; i < stepCount; i++)
       {
-        retval.Add(new ValueAsyncStep(){ Name = $"AsyncStep{i}" });
+        retval.Add(new ValueAsyncStep() { Name = $"AsyncStep{i}" });
       }
       return retval;
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using Anixe.QualityTools.Benchmark;
+﻿using Anixe.QualityTools.Benchmark;
 using BenchmarkDotNet.Analysers;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
@@ -15,19 +14,19 @@ namespace Anixe.TransactionSteps.Benchmark
     static void Main(string[] args)
     {
       var config = ManualConfig.CreateEmpty()
-        .With(ConsoleLogger.Default)
-        .With(DefaultColumnProviders.Instance)
-        .With(MemoryDiagnoser.Default)
-        .With(EnvironmentAnalyser.Default,
+        .AddLogger(ConsoleLogger.Default)
+        .AddColumnProvider(DefaultColumnProviders.Instance)
+        .AddDiagnoser(MemoryDiagnoser.Default)
+        .AddAnalyser(EnvironmentAnalyser.Default,
               OutliersAnalyser.Default,
               MinIterationTimeAnalyser.Default,
               MultimodalDistributionAnalyzer.Default,
               RuntimeErrorAnalyser.Default)
-        .With(BaselineValidator.FailOnError,
+        .AddValidator(BaselineValidator.FailOnError,
               SetupCleanupValidator.FailOnError,
               JitOptimizationsValidator.FailOnError,
               RunModeValidator.FailOnError)
-        .With(Job.Core.With(new GcMode()
+        .AddJob(Job.Default.WithId("Default").WithGcMode(new GcMode()
         {
           Force = false // tell BenchmarkDotNet not to force GC collections after every iteration
         }));

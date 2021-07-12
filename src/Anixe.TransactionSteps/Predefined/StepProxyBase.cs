@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Anixe.TransactionSteps.Predefined
 {
-  public abstract class StepProxyBase<T> : IStep<T> where T : class
+  public abstract class StepProxyBase<T> : IStep<T>
+    where T : class
   {
     private readonly AsyncStepBase<T> asyncStep;
     private readonly SyncStepBase<T> step;
@@ -18,41 +19,6 @@ namespace Anixe.TransactionSteps.Predefined
     protected StepProxyBase(SyncStepBase<T> step)
     {
       this.step = step;
-    }
-
-    public virtual bool CanProcess()
-    {
-      return this.InnerStep.CanProcess();
-    }
-
-    public virtual void Process()
-    {
-      this.SyncStep.Process();
-    }
-
-    public virtual Task ProcessAsync(CancellationToken token)
-    {
-      return this.AsyncStep.ProcessAsync(token);
-    }
-
-    private IStep<T> InnerStep
-    {
-      get { return this.AsyncStep ?? this.SyncStep; }
-    }
-
-    private IStep<T> AsyncStep
-    {
-      get => this.asyncStep as IStep<T>;
-    }
-
-    private IStep<T> SyncStep
-    {
-      get => this.step as IStep<T>;
-    }
-
-    public bool IsAsync()
-    {
-      return this.asyncStep != null;
     }
 
     public T Context
@@ -114,5 +80,20 @@ namespace Anixe.TransactionSteps.Predefined
       get => this.InnerStep.MustProcessAfterCancel;
       set => this.InnerStep.MustProcessAfterCancel = value;
     }
+
+    private IStep<T> InnerStep => this.AsyncStep ?? this.SyncStep;
+
+    private IStep<T> AsyncStep => this.asyncStep as IStep<T>;
+
+    private IStep<T> SyncStep => this.step as IStep<T>;
+
+    public virtual bool CanProcess() => this.InnerStep.CanProcess();
+
+    public virtual void Process() => this.SyncStep.Process();
+
+    public virtual Task ProcessAsync(CancellationToken token)
+      => this.AsyncStep.ProcessAsync(token);
+
+    public bool IsAsync() => this.asyncStep != null;
   }
 }

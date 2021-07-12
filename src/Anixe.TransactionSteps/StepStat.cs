@@ -1,4 +1,4 @@
-namespace Anixe.TransactionSteps
+﻿namespace Anixe.TransactionSteps
 {
   public class StepStat
   {
