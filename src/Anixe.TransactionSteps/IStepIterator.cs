@@ -11,13 +11,13 @@ namespace Anixe.TransactionSteps
     List<StepStat> Stats { get; }
 
     Task<T> IterateAllAsync(
-      IServiceProvider services,
+      IServiceProvider? services,
       LinkedList<IStep> steps,
-      IStep errorHandler,
+      IStep? errorHandler,
       CancellationToken token);
 
     void IterateAll(
-      IServiceProvider services,
+      IServiceProvider? services,
       LinkedList<IStep> steps,
       IStep errorHandler);
   }

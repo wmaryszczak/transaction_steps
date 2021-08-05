@@ -8,17 +8,17 @@ namespace Anixe.TransactionSteps.Predefined
   public abstract class StepProxyBase<T> : IStep<T>
     where T : class
   {
-    private readonly AsyncStepBase<T> asyncStep;
-    private readonly SyncStepBase<T> step;
+    private readonly AsyncStepBase<T>? asyncStep;
+    private readonly SyncStepBase<T>? step;
 
     protected StepProxyBase(AsyncStepBase<T> asyncStep)
     {
-      this.asyncStep = asyncStep;
+      this.asyncStep = asyncStep ?? throw new ArgumentNullException(nameof(asyncStep));
     }
 
     protected StepProxyBase(SyncStepBase<T> step)
     {
-      this.step = step;
+      this.step = step ?? throw new ArgumentNullException(nameof(step));
     }
 
     public T Context
@@ -27,7 +27,7 @@ namespace Anixe.TransactionSteps.Predefined
       set => this.InnerStep.Context = value;
     }
 
-    public IServiceProvider Services
+    public IServiceProvider? Services
     {
       get => this.InnerStep.Services;
       set => this.InnerStep.Services = value;
@@ -81,18 +81,33 @@ namespace Anixe.TransactionSteps.Predefined
       set => this.InnerStep.MustProcessAfterCancel = value;
     }
 
-    private IStep<T> InnerStep => this.AsyncStep ?? this.SyncStep;
+    private IStep<T> InnerStep => this.AsyncStep ?? this.SyncStep ?? throw new InvalidOperationException("No step defined");
 
-    private IStep<T> AsyncStep => this.asyncStep as IStep<T>;
+    private IStep<T>? AsyncStep => this.asyncStep as IStep<T>;
 
-    private IStep<T> SyncStep => this.step as IStep<T>;
+    private IStep<T>? SyncStep => this.step as IStep<T>;
 
     public virtual bool CanProcess() => this.InnerStep.CanProcess();
 
-    public virtual void Process() => this.SyncStep.Process();
+    public virtual void Process()
+    {
+      if (this.SyncStep is null)
+      {
+        throw new NotSupportedException("Synchronous processing of the step is not supported because is asynchronous. Use ProcessAsync instead.");
+      }
+
+      this.SyncStep.Process();
+    }
 
     public virtual Task ProcessAsync(CancellationToken token)
-      => this.AsyncStep.ProcessAsync(token);
+    {
+      if (this.AsyncStep is null)
+      {
+        throw new NotSupportedException("Asynchronous processing of the step is not supported because is synchronous. Use Process instead.");
+      }
+
+      return this.AsyncStep.ProcessAsync(token);
+    }
 
     public bool IsAsync() => this.asyncStep != null;
   }

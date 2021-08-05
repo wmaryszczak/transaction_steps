@@ -6,9 +6,9 @@
 
     bool Contains<T>(string name);
 
-    T Get<T>();
+    T? Get<T>();
 
-    T Get<T>(string name);
+    T? Get<T>(string name);
 
     void Set<T>(T property);
 

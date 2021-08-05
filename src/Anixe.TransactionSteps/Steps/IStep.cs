@@ -7,7 +7,7 @@ namespace Anixe.TransactionSteps
 {
   public interface IStep
   {
-    IServiceProvider Services { get; set; }
+    IServiceProvider? Services { get; set; }
 
     string Name { get; set; }
 

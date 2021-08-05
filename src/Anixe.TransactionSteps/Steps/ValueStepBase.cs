@@ -5,7 +5,7 @@ namespace Anixe.TransactionSteps
 {
   public abstract class ValueStepBase : IValueTaskStep
   {
-    private string stepName;
+    private string? stepName;
 
     public string Name
     {
@@ -16,7 +16,7 @@ namespace Anixe.TransactionSteps
           this.stepName = GetDefaultStepName();
         }
 
-        return this.stepName;
+        return this.stepName!;
       }
       set => this.stepName = value;
     }

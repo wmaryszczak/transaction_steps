@@ -9,10 +9,10 @@ namespace Anixe.TransactionSteps.Predefined
     private readonly Func<IStep, Task> action;
     private readonly Predicate<IStep> canProcessPredicate;
 
-    public AsyncStep(Func<IStep, Task> action, Predicate<IStep> canProcessPredicate = null)
+    public AsyncStep(Func<IStep, Task> action, Predicate<IStep>? canProcessPredicate = null)
     {
-      this.action = action;
-      this.canProcessPredicate = canProcessPredicate ?? True;
+      this.action = action ?? throw new ArgumentNullException(nameof(action));
+      this.canProcessPredicate = canProcessPredicate ?? this.True;
     }
 
     public bool CanProcess() => this.canProcessPredicate(this);
