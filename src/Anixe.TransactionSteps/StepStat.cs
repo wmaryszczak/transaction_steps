@@ -2,7 +2,7 @@
 {
   public class StepStat
   {
-    public string Name;
+    public string Name = string.Empty;
     public double TimeTaken;
     public int ProcessedItemsCount;
 

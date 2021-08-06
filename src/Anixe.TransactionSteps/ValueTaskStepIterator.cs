@@ -12,6 +12,16 @@ namespace Anixe.TransactionSteps
       IList<IValueTaskStep> steps,
       CancellationToken token)
     {
+      if (context is null)
+      {
+        throw new ArgumentNullException(nameof(context));
+      }
+
+      if (steps is null)
+      {
+        throw new ArgumentNullException(nameof(steps));
+      }
+
       var stats = new List<StepStat>(steps.Count);
       for (int i = 0; i < steps.Count; i++)
       {

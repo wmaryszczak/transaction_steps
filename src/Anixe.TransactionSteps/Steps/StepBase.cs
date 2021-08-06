@@ -5,9 +5,9 @@ namespace Anixe.TransactionSteps
 {
   public abstract class StepBase
   {
-    private string stepName;
+    private string? stepName;
 
-    public IServiceProvider Services { get; set; }
+    public IServiceProvider? Services { get; set; }
 
     public string Name
     {
@@ -18,7 +18,7 @@ namespace Anixe.TransactionSteps
           this.stepName = GetDefaultStepName();
         }
 
-        return this.stepName;
+        return this.stepName!;
       }
       set => this.stepName = value;
     }
@@ -27,9 +27,9 @@ namespace Anixe.TransactionSteps
 
     public int ProcessedItemsCount { get; set; }
 
-    public LinkedList<IStep> Neighbourood { get; set; }
+    public LinkedList<IStep> Neighbourood { get; set; } = new LinkedList<IStep>();
 
-    public LinkedListNode<IStep> Current { get; set; }
+    public LinkedListNode<IStep> Current { get; set; } = null!;
 
     public bool WasFired { get; set; }
 

@@ -10,9 +10,9 @@ namespace Anixe.TransactionSteps.Predefined
     private readonly Action<IStep<T>> action;
     private readonly Predicate<IStep<T>> canProcessPredicate;
 
-    public CtxStep(Action<IStep<T>> action, Predicate<IStep<T>> canProcessPredicate = null)
+    public CtxStep(Action<IStep<T>> action, Predicate<IStep<T>>? canProcessPredicate = null)
     {
-      this.action = action;
+      this.action = action ?? throw new ArgumentNullException(nameof(action));
       this.canProcessPredicate = canProcessPredicate ?? True;
     }
 

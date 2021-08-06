@@ -13,16 +13,16 @@ namespace Anixe.TransactionSteps
 
     public StepIterator(T context)
     {
-      this.context = context;
+      this.context = context ?? throw new ArgumentNullException(nameof(context));
       this.stats = new List<StepStat>();
     }
 
     public List<StepStat> Stats => this.stats;
 
     public async Task<T> IterateAllAsync(
-      IServiceProvider services,
+      IServiceProvider? services,
       LinkedList<IStep> steps,
-      IStep errorHandler,
+      IStep? errorHandler,
       CancellationToken token)
     {
       var currentNode = steps.First;
@@ -63,9 +63,9 @@ namespace Anixe.TransactionSteps
     }
 
     public void IterateAll(
-      IServiceProvider services,
+      IServiceProvider? services,
       LinkedList<IStep> steps,
-      IStep errorHandler)
+      IStep? errorHandler)
     {
       var currentNode = steps.First;
       this.stats.Clear();
@@ -91,11 +91,11 @@ namespace Anixe.TransactionSteps
       }
     }
 
-    protected Task<T> Failed(Exception ex) => Task.FromResult(this.context);
+    protected Task<T> Failed(Exception? ex) => Task.FromResult(this.context);
 
     protected void TakeStats(IStep step) => this.stats.Add(StepStat.CreateFromStep(step));
 
-    private static IStep RetrieveStep(LinkedList<IStep> steps, LinkedListNode<IStep> currentNode, IServiceProvider services)
+    private static IStep RetrieveStep(LinkedList<IStep> steps, LinkedListNode<IStep> currentNode, IServiceProvider? services)
     {
       var step = currentNode.Value;
       step.Services = services;
