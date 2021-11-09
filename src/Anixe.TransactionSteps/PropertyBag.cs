@@ -73,10 +73,36 @@ namespace Anixe.TransactionSteps
       return default;
     }
 
+    public T? GetRequired<T>()
+    {
+      var type = typeof(T);
+      if (this.typedProperties.TryGetValue(type, out var item))
+      {
+        return (T?)item;
+      }
+
+      throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
+    }
+
+    public T? GetRequired<T>(string name)
+    {
+      if (this.namedProperties.TryGetValue(name, out var item))
+      {
+        return (T?)item;
+      }
+
+      throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
+    }
+
     public void Unset<T>()
     {
       var type = typeof(T);
       this.typedProperties.Remove(type);
+    }
+
+    public void Unset<T>(string name)
+    {
+      this.namedProperties.Remove(name);
     }
 
     public IPropertyBag Clone()

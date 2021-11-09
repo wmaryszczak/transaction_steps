@@ -2,29 +2,29 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.0.5</Version>
+    <Version>2.1.0</Version>
     <Title>Transaction Steps</Title>
     <Authors>WM</Authors>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RepositoryUrl>https://github.com/wmaryszczak/transaction_steps</RepositoryUrl>
-    <PackageReleaseNotes>- [MINOR] update System.Threading.Tasks.Extensions to 4.5.4 in netstandard2.0 build  
-- [MINOR] call `.ConfigureAwait(false)` in all async calls
-- [MINOR] change default implementation of StepIterator.Failed method to use Task.FromResult rather than awaiting task from TaskCompletionSource
-- [MINOR] added missing MIT licence to package metadata
-- [MINOR] added SourceLink to the nuget package
-- [INTERNAL] use StyleCop
-- [INTERNAL] use PublicApiAnalyzers
-- [INTERNAL] change structore of VS solution</PackageReleaseNotes>
+    <PackageReleaseNotes>- [MINOR] Added GetReuired methods to IPropertyBag
+- [MINOR] Added missing Unset overload to remove item from IPropertyBag by type and name
+- [MINOR] Documented methods of IPropertyBag</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.2">
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
