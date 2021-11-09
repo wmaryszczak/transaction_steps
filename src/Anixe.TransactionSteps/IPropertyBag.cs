@@ -43,7 +43,7 @@
     /// <typeparam name="T">The type of item to get.</typeparam>
     /// <returns>Item to get.</returns>
     /// <exception cref="System.InvalidOperationException">The required item is missing.</exception>
-    T? GetRequired<T>();
+    T GetRequired<T>();
 
     /// <summary>
     /// Returns an item of type <typeparamref name="T"/> and provided name or throws <see cref="System.InvalidOperationException"/> when it does not contain.
@@ -53,7 +53,7 @@
     /// <returns>Item to get.</returns>
     /// <exception cref="System.ArgumentNullException">name is null.</exception>
     /// <exception cref="System.InvalidOperationException">The required item is missing.</exception>
-    T? GetRequired<T>(string name);
+    T GetRequired<T>(string name);
 
     /// <summary>
     /// Sets an item of type <typeparamref name="T"/>.
