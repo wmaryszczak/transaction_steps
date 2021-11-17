@@ -94,6 +94,31 @@ namespace Anixe.TransactionSteps
       throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
     }
 
+    public bool TryGet<T>(out T value)
+    {
+      var type = typeof(T);
+      if (this.typedProperties.TryGetValue(type, out var item))
+      {
+        value = (T)item!;
+        return true;
+      }
+
+      value = default!;
+      return false;
+    }
+
+    public bool TryGet<T>(string name, out T value)
+    {
+      if (this.namedProperties.TryGetValue(name, out var item))
+      {
+        value = (T)item!;
+        return true;
+      }
+
+      value = default!;
+      return false;
+    }
+
     public void Unset<T>()
     {
       var type = typeof(T);

@@ -17,6 +17,8 @@ Anixe.TransactionSteps.IPropertyBag.Get<T>(string! name) -> T?
 Anixe.TransactionSteps.IPropertyBag.GetRequired<T>() -> T
 Anixe.TransactionSteps.IPropertyBag.GetRequired<T>(string! name) -> T
 Anixe.TransactionSteps.IPropertyBag.Set<T>(T property) -> void
+Anixe.TransactionSteps.IPropertyBag.TryGet<T>(out T value) -> bool
+Anixe.TransactionSteps.IPropertyBag.TryGet<T>(string! name, out T value) -> bool
 Anixe.TransactionSteps.IPropertyBag.Unset<T>() -> void
 Anixe.TransactionSteps.IPropertyBag.Unset<T>(string! name) -> void
 Anixe.TransactionSteps.IStep
@@ -126,6 +128,8 @@ Anixe.TransactionSteps.PropertyBag.Get<T>(string! name) -> T?
 Anixe.TransactionSteps.PropertyBag.GetRequired<T>() -> T
 Anixe.TransactionSteps.PropertyBag.GetRequired<T>(string! name) -> T
 Anixe.TransactionSteps.PropertyBag.PropertyBag() -> void
+Anixe.TransactionSteps.PropertyBag.TryGet<T>(out T value) -> bool
+Anixe.TransactionSteps.PropertyBag.TryGet<T>(string! name, out T value) -> bool
 Anixe.TransactionSteps.PropertyBag.Unset<T>() -> void
 Anixe.TransactionSteps.PropertyBag.Unset<T>(string! name) -> void
 Anixe.TransactionSteps.ReadonlyPropertyBag
