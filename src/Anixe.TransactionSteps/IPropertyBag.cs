@@ -56,6 +56,26 @@
     T GetRequired<T>(string name);
 
     /// <summary>
+    /// Returns an item of type <typeparamref name="T"/> or returns the default value of the type.
+    /// </summary>
+    /// <typeparam name="T">The type of item to get.</typeparam>
+    /// <param name="value">When this method returns, contains item to get, if the type was found;
+    /// otherwise, the default value for the type of the value parameter.</param>
+    /// <returns><see langword="true"/> if contains an element with specified type; otherwise, <see langword="false"/>.</returns>
+    bool TryGet<T>(out T value);
+
+    /// <summary>
+    /// Returns an item of type <typeparamref name="T"/> or returns the default value of the type and name.
+    /// </summary>
+    /// <typeparam name="T">The type of item to get.</typeparam>
+    /// <param name="name">The name of the item to get.</param>
+    /// <param name="value">When this method returns, contains item to get, if the type and name was found;
+    /// otherwise, the default value for the type and name of the value parameter.</param>
+    /// <returns><see langword="true"/> if contains an element with specified type and name; otherwise, <see langword="false"/>.</returns>
+    /// <exception cref="System.ArgumentNullException">name is null.</exception>
+    bool TryGet<T>(string name, out T value);
+
+    /// <summary>
     /// Sets an item of type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">The type of item to set.</typeparam>
