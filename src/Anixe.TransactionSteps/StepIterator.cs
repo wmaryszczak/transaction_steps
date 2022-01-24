@@ -56,7 +56,15 @@ namespace Anixe.TransactionSteps
       {
         this.context.Set<Exception>(ex);
         errorHandler.Services = services;
-        await ExecuteStepAsync(errorHandler, token).ConfigureAwait(false);
+
+        if (errorHandler.IsAsync())
+        {
+          await ExecuteStepAsync(errorHandler, token).ConfigureAwait(false);
+        }
+        else
+        {
+          ExecuteStep(errorHandler);
+        }
       }
 
       return this.context;
