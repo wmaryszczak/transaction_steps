@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <Title>Transaction Steps</Title>
     <Authors>WM</Authors>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RepositoryUrl>https://github.com/wmaryszczak/transaction_steps</RepositoryUrl>
-    <PackageReleaseNotes>- [MINOR] Added TryGet methods to IPropertyBag</PackageReleaseNotes>
+    <PackageReleaseNotes>- [MINOR] Fix StepIterator.IterateAllAsync was not working with synchronous error handler</PackageReleaseNotes>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
