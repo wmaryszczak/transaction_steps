@@ -113,7 +113,7 @@
     IPropertyBag Clone();
 
     /// <summary>
-    /// Returns a copy of this intsance with all items except provided typed items.
+    /// Returns a copy of this instance with all items except provided typed items.
     /// </summary>
     /// <param name="exclude">An array of types to exclude.</param>
     /// <returns>A new instance with all copied items except provided typed items.</returns>

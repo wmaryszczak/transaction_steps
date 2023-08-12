@@ -103,7 +103,7 @@ namespace Anixe.TransactionSteps.Predefined
     {
       if (this.AsyncStep is null)
       {
-        throw new NotSupportedException("Asynchronous processing of the step is not supported because is synchronous. Use Process instead.");
+        return Task.FromException(new NotSupportedException("Asynchronous processing of the step is not supported because is synchronous. Use Process instead."));
       }
 
       return this.AsyncStep.ProcessAsync(token);

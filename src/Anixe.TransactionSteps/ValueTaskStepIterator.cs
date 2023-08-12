@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Anixe.TransactionSteps.Helpers;
 
 namespace Anixe.TransactionSteps
 {
@@ -53,9 +55,9 @@ namespace Anixe.TransactionSteps
 
       if (step.CanProcess())
       {
-        var dt = DateTime.UtcNow;
+        var startTimestamp = Stopwatch.GetTimestamp();
         await step.Process(token).ConfigureAwait(false);
-        var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+        var tt = StopwatchHelper.GetElapsedTime(startTimestamp).TotalMilliseconds;
         step.WasFired = true;
         step.TimeTaken = tt;
         stats.Add(StepStat.CreateFromStep(step));
