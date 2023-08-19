@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Anixe.TransactionSteps.Helpers;
 
 namespace Anixe.TransactionSteps
 {
@@ -119,7 +121,7 @@ namespace Anixe.TransactionSteps
         stepGeneric.Context = this.context;
       }
 
-      var dt = DateTime.UtcNow;
+      var startTimestamp = Stopwatch.GetTimestamp();
       if (step.CanProcess())
       {
         if (step.IsAsync())
@@ -131,7 +133,7 @@ namespace Anixe.TransactionSteps
           step.Process();
         }
 
-        var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+        var tt = StopwatchHelper.GetElapsedTime(startTimestamp).TotalMilliseconds;
         step.WasFired = true;
         step.TimeTaken = tt;
         TakeStats(step);
@@ -147,7 +149,7 @@ namespace Anixe.TransactionSteps
 
       if (step.CanProcess())
       {
-        var dt = DateTime.UtcNow;
+        var startTimestamp = Stopwatch.GetTimestamp();
         if (step.IsAsync())
         {
           throw new NotSupportedException("Use IterateAllAsync method");
@@ -157,7 +159,7 @@ namespace Anixe.TransactionSteps
           step.Process();
         }
 
-        var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+        var tt = StopwatchHelper.GetElapsedTime(startTimestamp).TotalMilliseconds;
         step.WasFired = true;
         step.TimeTaken = tt;
         TakeStats(step);

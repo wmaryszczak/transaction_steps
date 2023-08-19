@@ -81,7 +81,10 @@ namespace Anixe.TransactionSteps
         return (T)item!;
       }
 
-      throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
+      ThrowRequired();
+      return default!; // never reached
+
+      static void ThrowRequired() => throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
     }
 
     public T GetRequired<T>(string name)
@@ -91,7 +94,10 @@ namespace Anixe.TransactionSteps
         return (T)item!;
       }
 
-      throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
+      ThrowRequired();
+      return default!; // never reached
+
+      static void ThrowRequired() => throw new InvalidOperationException($"{typeof(PropertyBag).Name} requires to contain type {typeof(T).Name}");
     }
 
     public bool TryGet<T>(out T value)

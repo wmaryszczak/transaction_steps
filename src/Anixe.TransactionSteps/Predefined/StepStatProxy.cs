@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Anixe.TransactionSteps.Helpers;
 
 namespace Anixe.TransactionSteps.Predefined
 {
@@ -19,17 +20,17 @@ namespace Anixe.TransactionSteps.Predefined
 
     public override void Process()
     {
-      var dt = DateTime.UtcNow;
+      var startTimestamp = Stopwatch.GetTimestamp();
       base.Process();
-      var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+      var tt = StopwatchHelper.GetElapsedTime(startTimestamp).TotalMilliseconds;
       this.TimeTaken = tt;
     }
 
     public override async Task ProcessAsync(CancellationToken token)
     {
-      var dt = DateTime.UtcNow;
+      var startTimestamp = Stopwatch.GetTimestamp();
       await base.ProcessAsync(token).ConfigureAwait(false);
-      var tt = (DateTime.UtcNow - dt).TotalMilliseconds;
+      var tt = StopwatchHelper.GetElapsedTime(startTimestamp).TotalMilliseconds;
       this.TimeTaken = tt;
     }
   }
